@@ -49,12 +49,12 @@ const ProductsSection = () => {
   }, []); // Empty array means run once on mount
 
   // API Handlers
-  const handleEditProduct = (product) => {
-    navigate("/seller-add-product", {
+  const handleEditProduct = (id) => {
+    navigate("/add-product", {
       // Assuming this is your edit/add route
       state: {
         editMode: true,
-        product: product,
+        product: id,
       },
     });
   };
@@ -185,7 +185,7 @@ const ProductsSection = () => {
                   <td className="px-4 py-3 whitespace-nowrap space-x-2">
                     <button
                       className="text-blue-600 hover:text-blue-800 font-medium"
-                      onClick={() => handleEditProduct(product)}
+                      onClick={() => handleEditProduct(product._id)}
                     >
                       Edit
                     </button>
