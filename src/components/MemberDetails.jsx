@@ -13,20 +13,40 @@ import {
 const MemberDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [member, setMember] = useState("");
+  const [product, setProduct] = useState([]);
+
+  const [memberDetails, setMemberDetails] = useState(null);
+
   //   const [cart, setCart] = useState([]);
 
   useEffect(() => {
     const fetchMemberprod = async () => {
       try {
         const response = await axiosInstance.get(`/showSellerProds/${id}`);
-        setMember(response.data);
+        setProduct(response.data.products);
+        console.log(response.data.products);
       } catch (error) {
-        console.error("Failed to fetch member:", error);
+        console.error("Failed to fetch products:", error);
       }
     };
     fetchMemberprod();
   }, [id]);
+
+  // fetch the member details
+  useEffect(() => {
+    const fetchMemberDetails = async () => {
+      try {
+        const response = await axiosInstance.get(`/member/${id}`);
+        setMemberDetails(response.data);
+        console.log(response.data.seller);
+      } catch (error) {
+        console.error("Failed to fetch member details:", error);
+      }
+    };
+    fetchMemberDetails();
+  }, [id]);
+
+  // const profileDes[{name, businessDescription, profileImage}] = memberDetails;
 
   //   const addToCart = (product) => {
   //     setCart((prevCart) => {
@@ -45,7 +65,7 @@ const MemberDetails = () => {
   //     // alert(${product.name} added to cart!);
   //   };
 
-  if (!member)
+  if (!memberDetails)
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <p className="text-center text-gray-600 text-xl">Loading profile...</p>
@@ -68,34 +88,32 @@ const MemberDetails = () => {
           {/* Profile Section */}
           <div className="lg:col-span-1">
             <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-white/50 sticky top-8">
-              <div className="text-center">
+              <div className="text-center ">
                 <img
-                  src={member.avatarUrl}
-                  alt={member.name}
-                  className="w-32 h-32 rounded-full mb-5 object-cover mx-auto shadow-lg border-4 border-white"
+                  src={memberDetails.seller.profileImage}
+                  alt={memberDetails.seller.name}
+                  className="w-30 h-30  rounded-full mb-5 object-cover mx-auto shadow-lg border-4 border-white"
                 />
                 <h2 className="text-2xl font-bold text-gray-800">
-                  {member.name}
+                  {memberDetails.seller.name}
                 </h2>
-                <div className="flex items-center justify-center gap-2 mt-2 text-gray-600">
+                <div className="flex  items-center justify-center  gap-2 mt-2 text-gray-600">
                   <Briefcase size={16} />
-                  <p className="text-sm">{member.jobTitle}</p>
+                  <p className="text-sm flex items-center gap-1 font-semibold">
+                    {memberDetails.seller.businessName}
+                  </p>
                 </div>
 
                 {/* Rating */}
                 <div className="flex items-center justify-center gap-2 mt-3">
                   <div className="flex items-center gap-1">
                     <Star size={16} className="text-yellow-400 fill-current" />
-                    <span className="text-sm font-semibold text-gray-700">
-                      {member.rating}
-                    </span>
+                    <span className="text-sm font-semibold text-gray-700"></span>
                   </div>
-                  <span className="text-sm text-gray-500">
-                    ({member.reviews} reviews)
-                  </span>
+                  <span className="text-sm text-gray-500">( reviews)</span>
                 </div>
 
-                <p className="text-gray-500 text-sm mt-1">Age: {member.age}</p>
+                <p className="text-gray-500 text-sm mt-1">Age:50</p>
               </div>
 
               {/* Description */}
@@ -105,87 +123,42 @@ const MemberDetails = () => {
                   About
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  {member.description}
+                  {memberDetails.seller.businessDescription}
                 </p>
+
+                {/* {product.name.length > 10
+                  ? `${product.name.slice(0, 10)}...`
+                  : product.name} */}
               </div>
             </div>
           </div>
 
           {/* Products Section */}
-          <div className="lg:col-span-2">
-            <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-white/50">
-              <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                <Sparkles size={20} className="text-purple-600" />
-                Products & Services
-              </h3>
+          {Array.isArray(product) &&
+            product.map((product) => (
+              <div key={product._id} className="lg:col-span-2">
+                <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-white/50">
+                  {/* Header with ShoppingCart icon */}
+                  <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                    <ShoppingCart size={18} className="text-purple-600" />
+                    Products
+                  </h3>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                {member.products.map((product) => (
-                  <div
-                    key={product.id}
-                    className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300"
-                  >
-                    {/* Product Image */}
-                    <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.target.style.display = "none";
-                          e.target.nextSibling.style.display = "flex";
-                        }}
-                      />
-                      {/* Fallback if image doesn't load */}
-                      <div className="hidden h-full items-center justify-center bg-gradient-to-br from-purple-50 to-pink-50">
-                        <div className="text-center">
-                          <Sparkles
-                            size={32}
-                            className="text-purple-400 mx-auto mb-2"
-                          />
-                          <p className="text-purple-600 font-semibold text-sm">
-                            {product.name}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Product Details - Simple Layout like the image */}
-                    <div className="p-4">
-                      {/* Product Name */}
-                      <h4 className="font-bold text-gray-800 text-lg mb-1">
-                        {product.name}
-                      </h4>
-
-                      {/* Product Description */}
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
-                        {product.description}
-                      </p>
-
-                      {/* Price and Add to Cart Button */}
-                      <div className="flex justify-between items-center">
-                        {/* Price */}
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-2xl font-bold text-gray-800">
-                            ₹{product.price}
-                          </span>
-                        </div>
-
-                        {/* Add to Cart Button */}
-                        <button
-                          onClick={() => addToCart(product)}
-                          className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:from-purple-600 hover:to-pink-600 transition-all duration-200 transform hover:scale-105 shadow-sm"
-                        >
-                          <ShoppingCart size={16} />
-                          Add to Cart
-                        </button>
-                      </div>
-                    </div>
+                  {/* Product details */}
+                  <div className="space-y-2">
+                    <p className="text-lg font-bold text-gray-900">
+                      {product.name}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      {product.description}
+                    </p>
+                    <p className="text-md text-green-600 font-semibold">
+                      ₹{product.price}
+                    </p>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
-          </div>
+            ))}
         </div>
       </div>
     </div>

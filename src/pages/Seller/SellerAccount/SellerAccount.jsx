@@ -67,7 +67,7 @@ const SellerAccount = () => {
 
   // Fetch products when component mounts or when activeSection changes to products
   useEffect(() => {
-    if (activeSection === "products") {
+    if (activeSection === "products" || activeSection === "dashboard") {
       fetchProducts();
     }
   }, [activeSection]);

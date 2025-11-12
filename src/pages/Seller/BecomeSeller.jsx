@@ -55,6 +55,59 @@ const FileUploadUI = ({ qr }) => (
   </div>
 );
 
+// --- EDIT START: Added new component for profile photo preview ---
+/**
+ * A UI component to display a circular preview of the selected profile photo
+ * or a default avatar icon.
+ */
+const ProfilePhotoUploadUI = ({ file }) => {
+  const [previewUrl, setPreviewUrl] = useState(null);
+
+  useEffect(() => {
+    if (!file) {
+      setPreviewUrl(null);
+      return;
+    }
+    // Create an object URL for the file
+    const objectUrl = URL.createObjectURL(file);
+    setPreviewUrl(objectUrl);
+
+    // Free memory when the component unmounts or file changes
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [file]);
+
+  return (
+    <div
+      className={`flex items-center justify-center w-32 h-32 rounded-full bg-gray-100 border-2 border-gray-300 overflow-hidden text-gray-400 ${
+        previewUrl ? "border-gold" : ""
+      }`}
+    >
+      {previewUrl ? (
+        <img
+          src={previewUrl}
+          alt="Profile Preview"
+          className="w-full h-full object-cover"
+        />
+      ) : (
+        // Default Avatar Icon
+        <svg
+          className="w-20 h-20"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+            clipRule="evenodd"
+          ></path>
+        </svg>
+      )}
+    </div>
+  );
+};
+// --- EDIT END ---
+
 const BecomeSeller = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
@@ -69,6 +122,9 @@ const BecomeSeller = () => {
     address: "",
     pinCode: "",
     description: "",
+    // --- EDIT START: Added profilePhoto to state ---
+    profilePhoto: null,
+    // --- EDIT END ---
     qr: null,
     acceptTerms: false,
   });
@@ -85,7 +141,6 @@ const BecomeSeller = () => {
     }
   }, [user, formData.fullName]);
 
-  // ... (validateForm, handleInputChange, handleFileChange are unchanged) ...
   const validateForm = () => {
     const newErrors = {};
     const {
@@ -98,6 +153,9 @@ const BecomeSeller = () => {
       address,
       pinCode,
       description,
+      // --- EDIT START: Destructure profilePhoto ---
+      profileImage,
+      // --- EDIT END ---
       qr,
       acceptTerms,
     } = formData;
@@ -113,6 +171,10 @@ const BecomeSeller = () => {
     else if (password.length < 6)
       newErrors.password = "Password must be at least 6 characters";
 
+    // --- EDIT START: Add profileImage validation ---
+    if (!profileImage) newErrors.profileImage = "Profile photo is required";
+    // --- EDIT END ---
+
     // Business Info
     if (!businessName.trim())
       newErrors.businessName = "Business name is required";
@@ -127,7 +189,7 @@ const BecomeSeller = () => {
       newErrors.description = "Business description is required";
     else if (description.trim().length < 50)
       newErrors.description = "Description must be at least 50 characters";
-    if (!qr) newErrors.qr = "QR Code file is required"; // <-- File validation
+    if (!qr) newErrors.qr = "QR Code file is required";
 
     // Terms
     if (!acceptTerms)
@@ -157,25 +219,39 @@ const BecomeSeller = () => {
     }
   };
 
+  // --- EDIT START: Added handler for profile photo ---
+  const handleProfilePhotoChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prev) => ({
+      ...prev,
+      profileImage: file || null,
+    }));
+    if (file) {
+      setErrors((prev) => ({ ...prev, profileImage: "" }));
+    }
+  };
+  // --- EDIT END ---
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // **FIX 1: Use 'FormData' (capital F, capital D)**
       const AllFormData = new FormData();
 
-      // **FIX 2: Append fields with names the back-end EXPECTS**
-      AllFormData.append("name", formData.fullName); // Back-end expects 'name'
+      AllFormData.append("name", formData.fullName);
       AllFormData.append("email", formData.email);
       AllFormData.append("phone", formData.phone);
       AllFormData.append("password", formData.password);
       AllFormData.append("businessName", formData.businessName);
       AllFormData.append("businessType", formData.businessType);
-      AllFormData.append("businessAddress", formData.address); // Back-end expects 'businessAddress'
-      AllFormData.append("pincode", formData.pinCode); // Back-end expects 'pincode'
-      AllFormData.append("businessDescription", formData.description); // Back-end expects 'businessDescription'
-      AllFormData.append("qr", formData.qr); // The file
-      // 'acceptTerms' is not needed by your back-end, but you can send it if you want
-      // AllFormData.append("acceptTerms", formData.acceptTerms);
+      AllFormData.append("businessAddress", formData.address);
+      AllFormData.append("pincode", formData.pinCode);
+      AllFormData.append("businessDescription", formData.description);
+
+      // --- EDIT START: Append profilePhoto to form data ---
+      AllFormData.append("profileImage", formData.profileImage);
+      // --- EDIT END ---
+
+      AllFormData.append("qr", formData.qr); // The QR file
 
       try {
         const response = await axiosInstance.post(
@@ -188,25 +264,21 @@ const BecomeSeller = () => {
           }
         );
 
-        // **FIX 3: Handle success *inside* the try block**
         console.log("Signup successful:", response.data);
         const { token, role } = response.data;
 
-        // Create userData for the login context
         const userData = {
           name: formData.fullName,
           email: formData.email,
           role: role,
           businessName: formData.businessName,
+          // You might want to get the profile photo URL from the response
+          // and add it to userData here if the API returns it.
         };
 
-        // Call login with the REAL token and user data from the API response
         login(userData, token);
-
-        // Show the modal *after* successful login
         setShowModal(true);
       } catch (error) {
-        // Handle errors from the API
         console.error(
           "Signup failed:",
           error.response ? error.response.data : error.message
@@ -216,11 +288,11 @@ const BecomeSeller = () => {
           form:
             error.response?.data?.message || "Server error. Please try again.",
         }));
-        window.scrollTo(0, 0); // Scroll to top to see form-level errors
+        window.scrollTo(0, 0);
       }
     } else {
       console.log("Form validation failed:", errors);
-      window.scrollTo(0, 0); // Scroll to top to see validation errors
+      window.scrollTo(0, 0);
     }
   };
 
@@ -232,7 +304,6 @@ const BecomeSeller = () => {
   return (
     <div className="min-h-screen bg-gray-50 pt-24 pb-12">
       <div className="max-w-4xl mx-auto px-4">
-        {/* ... (Header is unchanged) ... */}
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
             Become a Member
@@ -241,7 +312,6 @@ const BecomeSeller = () => {
             Join our community of women entrepreneurs and grow your business
           </p>
 
-          {/* Display general form errors */}
           {errors.form && (
             <div
               className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6"
@@ -252,7 +322,6 @@ const BecomeSeller = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-12">
-            {/* ... (Section 1 is unchanged) ... */}
             <div className="space-y-6">
               <h2 className="text-2xl font-semibold text-gray-800 border-b pb-3">
                 Personal Information
@@ -292,6 +361,46 @@ const BecomeSeller = () => {
                   </div>
                 ))}
               </div>
+
+              {/* --- EDIT START: Added Profile Photo Upload Section --- */}
+              <div className="pt-4">
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Upload Profile Photo *
+                </label>
+                <div className="flex items-center gap-6">
+                  {/* The clickable preview area */}
+                  <label
+                    htmlFor="profile-photo-file"
+                    className="cursor-pointer"
+                  >
+                    <ProfilePhotoUploadUI file={formData.profileImage} />
+                    {/* The actual file input is hidden */}
+                    <input
+                      id="profile-photo-file"
+                      type="file"
+                      className="hidden"
+                      onChange={handleProfilePhotoChange}
+                      accept="image/png, image/jpeg"
+                    />
+                  </label>
+
+                  {/* A separate button to change photo, also clickable */}
+                  <label
+                    htmlFor="profile-photo-file"
+                    className="cursor-pointer bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  >
+                    {formData.profileImage ? "Change Photo" : "Select Photo"}
+                  </label>
+                </div>
+                {/* Error message for profile photo */}
+                {errors.profileImage && (
+                  <p className="text-red-500 text-sm mt-2">
+                    {errors.profileImage}
+                  </p>
+                )}
+              </div>
+              {/* --- EDIT END --- */}
+
               <p className="text-gray-600 text-center sm:text-left">
                 Already a seller?{" "}
                 <Link
@@ -326,7 +435,6 @@ const BecomeSeller = () => {
                           name="businessType"
                           value={formData.businessType}
                           onChange={handleInputChange}
-                          // **FIX 4: Removed typo 'businessTypef'**
                           className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent ${
                             errors.businessType
                               ? "border-red-500"
@@ -345,7 +453,6 @@ const BecomeSeller = () => {
                         <input
                           type="text"
                           name={field}
-                          // Use 'pinCode' from state, not 'pincode'
                           value={formData[field]}
                           onChange={handleInputChange}
                           className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent ${
@@ -372,7 +479,7 @@ const BecomeSeller = () => {
               {/* Description */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Business/Product Description *
+                  Business Description *
                 </label>
                 <textarea
                   name="description"
@@ -441,10 +548,10 @@ const BecomeSeller = () => {
                     3. Maintain fair pricing and transparent business practices.
                   </p>
                   {/* ... other terms ... */}
-                  <p>
-                    8. Payments processed within 7-10 business days after order
+                  {/* <p>
+                    4. Payments processed within 7-10 business days after order
                     completion.
-                  </p>
+                  </p> */}
                 </div>
               </div>
 
@@ -459,8 +566,14 @@ const BecomeSeller = () => {
                   }`}
                 />
                 <span className="text-sm text-gray-700">
-                  I have read and agree to the Terms & Conditions and Seller
-                  Agreement *
+                  I have read and agree to the{" "}
+                  <Link
+                    to="/terms-conditions"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Terms & Conditions
+                  </Link>{" "}
+                  and and Seller Agreement *
                 </span>
               </label>
               {errors.acceptTerms && (

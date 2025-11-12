@@ -15,6 +15,7 @@ import {
   FaTimes,
   FaBars,
 } from "react-icons/fa";
+import logo from "../assets/wbc-logo.png";
 
 const Navbar = () => {
   const { isAuthenticated, logout, user, isSeller } = useAuth();
@@ -76,14 +77,14 @@ const Navbar = () => {
   }, [location.pathname]);
 
   return (
-    <nav className="py-2 z-50 bg-gradient-to-r from-[#ffffff] to-[#d4dfed] shadow-md relative">
+    <nav className="py-2 top-0 left-0 right-0 relative z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="shrink-0">
               <img
-                src="./wbc-logo.png"
+                src={logo}
                 alt="WBC Logo"
                 className="h-16 w-16 md:h-18 md:w-20 brightness-0 invert"
               />
