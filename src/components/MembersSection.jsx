@@ -55,16 +55,7 @@ const MembersSection = () => {
 
   return (
     <section className="py-10 px-6 bg-gray-50">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold">Our Active Members</h2>
-        <button
-          onClick={() => navigate("/members")}
-          className="text-white sm:px-2 px-4 py-2 rounded font-medium bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300 md:h-11 items-center justify-center flex"
-        >
-          View All Members
-        </button>
-      </div>
-
+      {/* <div className="text-center mb-12 md:mb-16">Our Active Members</div> */}
       {/* Members Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {members.map((member, index) => (
@@ -72,7 +63,7 @@ const MembersSection = () => {
             key={member._id || `${member.name}-${index}`}
             onMouseMove={(e) => handleMouseMove(e, index)}
             onMouseLeave={handleMouseLeave}
-            className="relative bg-white shadow-md rounded-lg p-4 flex flex-col items-center transition duration-300 hover:scale-105 hover:border hover:border-[#B24592] overflow-hidden"
+            className="relative bg-white shadow-md rounded-lg p-4 flex flex-col justify-between items-center transition duration-300 hover:scale-105 hover:border hover:border-[#B24592] overflow-hidden min-h-[300px]"
           >
             {hoveredCardIndex === index && (
               <div
@@ -83,33 +74,35 @@ const MembersSection = () => {
               />
             )}
 
-            <div className="flex justify-center">
+            {/* Top content */}
+            <div className="flex flex-col items-center flex-grow">
               <img
                 src={member.profileImage}
                 alt={member.name || "Default Avatar"}
                 className="w-16 h-16 rounded-full mb-4 object-cover"
               />
-            </div>
-            <p className="text-sm text-gray-500">
-              Age: {manualAges[member.name] || "N/A"}
-            </p>
-            <h3 className="text-lg font-semibold text-center">
-              {member.name && member.name.length > 15
-                ? member.name.slice(0, 18) + "..."
-                : member.name}
-            </h3>
-            <div className="flex items-center gap-2 mt-2 text-gray-600">
-              <Briefcase size={14} className="flex-shrink-0" />
-              <span className="text-sm font-semibold truncate">
-                {member.businessName && member.businessName.length > 15
-                  ? member.businessName.slice(0, 18) + "..."
-                  : member.businessName}
-              </span>
+              <p className="text-sm text-gray-500">
+                Age: {manualAges[member.name] || "N/A"}
+              </p>
+              <h3 className="text-lg font-semibold text-center">
+                {member.name && member.name.length > 15
+                  ? member.name.slice(0, 15) + "..."
+                  : member.name}
+              </h3>
+              <div className="flex items-center gap-2 mt-2 text-gray-600">
+                <Briefcase size={14} className="flex-shrink-0" />
+                <span className="text-sm font-semibold truncate max-w-[150px]">
+                  {member.businessName && member.businessName.length > 15
+                    ? member.businessName.slice(0, 15) + "..."
+                    : member.businessName}
+                </span>
+              </div>
             </div>
 
+            {/* Bottom button */}
             <div className="mt-4">
               <Link to={`/members/${member._id}`}>
-                <button className="text-white sm:px-4 px-6 py-2 rounded font-medium bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300">
+                <button className="text-white px-6 py-2 rounded font-medium bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300">
                   View Profile
                 </button>
               </Link>

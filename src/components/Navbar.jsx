@@ -15,7 +15,7 @@ import {
   FaTimes,
   FaBars,
 } from "react-icons/fa";
-import logo from "../assets/wbc-logo.png";
+import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const { isAuthenticated, logout, user, isSeller } = useAuth();
@@ -86,7 +86,7 @@ const Navbar = () => {
               <img
                 src={logo}
                 alt="WBC Logo"
-                className="h-16 w-16 md:h-18 md:w-20 brightness-0 invert"
+                className="h-25 w-18 md:h-18 md:w-20 "
               />
             </Link>
           </div>
@@ -121,7 +121,7 @@ const Navbar = () => {
               to="/upcoming-events"
               className="text-black font-semibold tracking-wide transition-colors duration-300 hover:text-[#B24592] relative group"
             >
-              Upcoming Events
+              News & Events
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#B24592] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
             </Link>
           </div>

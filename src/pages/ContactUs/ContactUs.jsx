@@ -1,27 +1,27 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  })
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // Handle form submission here
-    console.log('Form submitted:', formData)
-    alert('Thank you for your message! We will get back to you soon.')
-    setFormData({ name: '', email: '', subject: '', message: '' })
-  }
+    console.log("Form submitted:", formData);
+    alert("Thank you for your message! We will get back to you soon.");
+    setFormData({ name: "", email: "", subject: "", message: "" });
+  };
 
   return (
     <div className="pt-20 min-h-screen bg-[#F8F0FF]">
@@ -30,21 +30,28 @@ const ContactUs = () => {
         <section className="py-16 text-center bg-gradient-to-r from-[#6A0DAD] to-[#B24592] text-white rounded-lg">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Get in Touch</h1>
           <p className="text-lg text-gray-200 max-w-2xl mx-auto">
-            We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            We'd love to hear from you. Send us a message and we'll respond as
+            soon as possible.
           </p>
         </section>
 
         <div className="grid md:grid-cols-2 gap-16 py-20">
           {/* Contact Information */}
           <section>
-            <h2 className="text-3xl font-bold text-[#9B59B6] mb-8">Contact Information</h2>
+            <h2 className="text-3xl font-bold text-[#9B59B6] mb-8">
+              Contact Information
+            </h2>
             <div className="grid gap-8">
               <div className="bg-white p-8 rounded-lg text-center transform transition-transform hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
                 <div className="text-5xl mb-4">📍</div>
-                <h3 className="text-xl font-bold text-[#6A0DAD] mb-4">Address</h3>
+                <h3 className="text-xl font-bold text-[#6A0DAD] mb-4">
+                  Address
+                </h3>
                 <p className="text-[#7F7F7F] leading-relaxed">
-                  123 Business District<br />
-                  Suite 456<br />
+                  123 Business District
+                  <br />
+                  Suite 456
+                  <br />
                   New York, NY 10001
                 </p>
               </div>
@@ -52,7 +59,8 @@ const ContactUs = () => {
                 <div className="text-5xl mb-4">📞</div>
                 <h3 className="text-xl font-bold text-[#6A0DAD] mb-4">Phone</h3>
                 <p className="text-[#7F7F7F] leading-relaxed">
-                  +1 (555) 123-4567<br />
+                  +1 (555) 123-4567
+                  <br />
                   Mon - Fri: 9:00 AM - 6:00 PM
                 </p>
               </div>
@@ -60,16 +68,21 @@ const ContactUs = () => {
                 <div className="text-5xl mb-4">✉️</div>
                 <h3 className="text-xl font-bold text-[#6A0DAD] mb-4">Email</h3>
                 <p className="text-[#7F7F7F] leading-relaxed">
-                  info@womanbusinesscircle.com<br />
+                  info@womanbusinesscircle.com
+                  <br />
                   support@womanbusinesscircle.com
                 </p>
               </div>
               <div className="bg-white p-8 rounded-lg text-center transform transition-transform hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
                 <div className="text-5xl mb-4">🕒</div>
-                <h3 className="text-xl font-bold text-[#6A0DAD] mb-4">Office Hours</h3>
+                <h3 className="text-xl font-bold text-[#6A0DAD] mb-4">
+                  Office Hours
+                </h3>
                 <p className="text-[#7F7F7F] leading-relaxed">
-                  Monday - Friday: 9:00 AM - 6:00 PM<br />
-                  Saturday: 10:00 AM - 4:00 PM<br />
+                  Monday - Friday: 9:00 AM - 6:00 PM
+                  <br />
+                  Saturday: 10:00 AM - 4:00 PM
+                  <br />
                   Sunday: Closed
                 </p>
               </div>
@@ -78,11 +91,21 @@ const ContactUs = () => {
 
           {/* Contact Form */}
           <section>
-            <h2 className="text-3xl font-bold text-[#9B59B6] mb-8">Send us a Message</h2>
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
+            <h2 className="text-3xl font-bold text-[#9B59B6] mb-8">
+              Send us a Message
+            </h2>
+            <form
+              onSubmit={handleSubmit}
+              className="bg-white p-8 rounded-lg shadow-[0_4px_20px_rgba(0,0,0,0.1)]"
+            >
               <div className="grid md:grid-cols-2 gap-4 mb-4">
                 <div className="space-y-2">
-                  <label htmlFor="name" className="block font-semibold text-[#2E2E2E]">Full Name *</label>
+                  <label
+                    htmlFor="name"
+                    className="block font-semibold text-[#2E2E2E]"
+                  >
+                    Full Name *
+                  </label>
                   <input
                     type="text"
                     id="name"
@@ -95,7 +118,12 @@ const ContactUs = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="email" className="block font-semibold text-[#2E2E2E]">Email Address *</label>
+                  <label
+                    htmlFor="email"
+                    className="block font-semibold text-[#2E2E2E]"
+                  >
+                    Email Address *
+                  </label>
                   <input
                     type="email"
                     id="email"
@@ -109,7 +137,12 @@ const ContactUs = () => {
                 </div>
               </div>
               <div className="space-y-2 mb-4">
-                <label htmlFor="subject" className="block font-semibold text-[#2E2E2E]">Subject *</label>
+                <label
+                  htmlFor="subject"
+                  className="block font-semibold text-[#2E2E2E]"
+                >
+                  Subject *
+                </label>
                 <input
                   type="text"
                   id="subject"
@@ -122,7 +155,12 @@ const ContactUs = () => {
                 />
               </div>
               <div className="space-y-2 mb-6">
-                <label htmlFor="message" className="block font-semibold text-[#2E2E2E]">Message *</label>
+                <label
+                  htmlFor="message"
+                  className="block font-semibold text-[#2E2E2E]"
+                >
+                  Message *
+                </label>
                 <textarea
                   id="message"
                   name="message"
@@ -145,7 +183,7 @@ const ContactUs = () => {
         </div>
 
         {/* FAQ Section */}
-        <section className="py-20 bg-[#E8E8E8] rounded-lg">
+        {/* <section className="py-20 bg-[#E8E8E8] rounded-lg">
           <h2 className="text-3xl font-bold text-[#9B59B6] mb-12 text-center">Frequently Asked Questions</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
             <div className="bg-white p-8 rounded-lg shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:-translate-y-1 transform transition-transform">
@@ -173,10 +211,10 @@ const ContactUs = () => {
               <p className="text-[#7F7F7F] leading-relaxed">Yes, we offer corporate partnership opportunities for organizations that want to support women's professional development. Contact us for more information about partnership options.</p>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ContactUs
+export default ContactUs;
