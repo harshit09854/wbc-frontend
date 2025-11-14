@@ -178,7 +178,7 @@ const BecomeSeller = () => {
     // Business Info
     if (!businessName.trim())
       newErrors.businessName = "Business name is required";
-    if (!businessType) newErrors.businessType = "Business type is required";
+    if (!businessType) newErrors.businessType = " type is required";
     if (!address.trim()) newErrors.address = "Address is required";
     if (!pinCode.trim()) newErrors.pinCode = "PIN code is required";
     else if (!/^\d{6}$/.test(pinCode))
@@ -431,7 +431,7 @@ const BecomeSeller = () => {
                           : "PIN Code *"}
                       </label>
                       {field === "businessType" ? (
-                        <select
+                        <input
                           name="businessType"
                           value={formData.businessType}
                           onChange={handleInputChange}
@@ -440,15 +440,8 @@ const BecomeSeller = () => {
                               ? "border-red-500"
                               : "border-gray-300"
                           }`}
-                        >
-                          <option value="">Select Type</option>
-                          <option value="food">Food & Beverages</option>
-                          <option value="fashion">Fashion & Apparel</option>
-                          <option value="handicrafts">Handicrafts</option>
-                          <option value="beauty">Beauty & Wellness</option>
-                          <option value="home">Home & Living</option>
-                          <option value="other">Other</option>
-                        </select>
+                        ></input>
+                                                 
                       ) : (
                         <input
                           type="text"
@@ -474,13 +467,11 @@ const BecomeSeller = () => {
             {/* ... (Section 3 & 4 are unchanged) ... */}
             <div className="space-y-6">
               <h2 className="text-2xl font-semibold text-gray-800 border-b pb-3">
-                Product & Payment Information
-              </h2>
+                  Business Description 
+                </h2>
               {/* Description */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Business Description *
-                </label>
+                
                 <textarea
                   name="description"
                   value={formData.description}
@@ -502,7 +493,7 @@ const BecomeSeller = () => {
               </div>
 
               {/* File Upload */}
-              <div>
+              {/* <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Upload Your Payment QR-Code *
                 </label>
@@ -526,7 +517,7 @@ const BecomeSeller = () => {
                 {errors.qr && (
                   <p className="text-red-500 text-sm mt-1">{errors.qr}</p>
                 )}
-              </div>
+              </div> */}
             </div>
 
             <div className="space-y-6">
@@ -573,7 +564,7 @@ const BecomeSeller = () => {
                   >
                     Terms & Conditions
                   </Link>{" "}
-                  and and Seller Agreement *
+                  and and Seller Agreement *
                 </span>
               </label>
               {errors.acceptTerms && (

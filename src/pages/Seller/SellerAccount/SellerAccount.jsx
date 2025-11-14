@@ -19,7 +19,7 @@ const SellerAccount = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);  const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
   const [loading, setLoading] = useState(false); // <-- Already have this, good!
   const location = useLocation();
   const navigate = useNavigate();
@@ -67,24 +67,12 @@ const SellerAccount = () => {
 
   // Fetch products when component mounts or when activeSection changes to products
   useEffect(() => {
-    if (activeSection === "products" || activeSection === "dashboard") {
-      fetchProducts();
-    }
+    if (activeSection === "products") fetchProducts();
   }, [activeSection]);
 
   // Populate profile form data when user data changes
   useEffect(() => {
-    if (activeSection === "profile" && user) {
-      setProfileFormData({
-        shopName: user.businessName || "",
-        email: user.email || "",
-        yearsInBusiness: user.yearsInBusiness || "",
-        businessAddress: user.address || "",
-        businessType: user.businessType || "",
-        description: user.description || "",
-        pinCode: user.pinCode || "",
-      });
-    }
+    // This can be populated from your auth context or an API call
   }, [activeSection, user]);
 
   useEffect(() => {
@@ -141,7 +129,7 @@ const SellerAccount = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 flex">
+    <div className="min-h-screen bg-gray-50  flex">
       {/* Sidebar */}
       <Sidebar
         activeSection={activeSection}

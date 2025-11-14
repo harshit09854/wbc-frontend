@@ -5,6 +5,7 @@ import { useState } from "react";
 import MembersSection from "../../components/MembersSection";
 import FAQSection from "./FaqSection";
 import UpcomingEvents from "./UpcomingEvents";
+import TrustedPartners from "./TrustedPatners";
 
 const Home = () => {
   return (
@@ -96,6 +97,9 @@ const Home = () => {
         </div>
       </section>
 
+      {/* 🤝 TRUSTED PARTNERS SECTION - Added here */}
+      <TrustedPartners />
+
       {/* Our Members */}
       <div className="mt-5 ml-5 mr-5 max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between mb-6">
@@ -128,7 +132,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center gap-12">
           <div className="w-full md:w-1/2 text-center md:text-left">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#6A0DAD] mb-6">
-              Empowering India’s Women, One Product at a Time
+              Empowering India's Women, One Product at a Time
             </h2>
             <p className="text-lg text-gray-700 mb-4">
               Every jar of pickle, every handmade toy, every crafted bag carries
@@ -157,7 +161,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 🌺 FOUNDER’S NOTE */}
+      {/* 🌺 FOUNDER'S NOTE */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-[#F8F0FF] via-white to-[#F8F0FF] relative overflow-hidden">
         <div className="absolute top-0 left-0 w-64 h-64 bg-[#B24592]/10 rounded-full blur-3xl -z-10"></div>
         <div className="absolute bottom-0 right-0 w-72 h-72 bg-[#6A0DAD]/10 rounded-full blur-3xl -z-10"></div>
@@ -177,19 +181,19 @@ const Home = () => {
           {/* Text */}
           <div className="w-full md:w-2/3 text-center md:text-left">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#6A0DAD] mb-6">
-              Founder’s Note
+              Founder's Note
             </h2>
             <p className="text-lg text-gray-700 mb-4">
-              “When I founded the{" "}
+              "When I founded the{" "}
               <span className="font-semibold text-[#6A0DAD]">
                 Women Business Circle
               </span>
               , I envisioned a space where women could transform creativity into
-              purpose and purpose into prosperity.”
+              purpose and purpose into prosperity."
             </p>
             <p className="text-lg text-gray-700 italic mb-6">
-              “Empowered women empower communities — and that’s our everyday
-              mission.”
+              "Empowered women empower communities — and that's our everyday
+              mission."
             </p>
             <h3 className="text-xl font-semibold text-[#6A0DAD]">
               — Acharya Anima Goswami

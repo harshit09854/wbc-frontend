@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
 import Modal from "./Modal";
+import {
+  LayoutDashboard,
+  Package,
+  User,
+  LogOut,
+} from "lucide-react";
 
 const Sidebar = ({
   activeSection,
@@ -14,12 +20,12 @@ const Sidebar = ({
   const { logout } = useAuth();
 
   const menuItems = [
-    ["dashboard", "📊 Dashboard"],
-    ["products", "🛍️ My Products"],
-    ["orders", "📦 Orders"],
-    ["payments", "💰 Payments"],
-    ["support", "💬 Support"],
-    ["profile", "👤 Profile"],
+    ["dashboard", "Dashboard", <LayoutDashboard size={20} />],
+    ["products", "My Products", <Package size={20} />],
+    // ["orders", " Orders"],
+    // ["payments", " Payments"],
+    // ["support", " Support"],
+    ["profile", "Profile", <User size={20} />],
   ];
 
   const handleLogout = () => {
@@ -45,29 +51,30 @@ const Sidebar = ({
           Seller Panel
         </h2>
         <nav className="space-y-2">
-          {menuItems.map(([key, label]) => (
+          {menuItems.map(([key, label, icon]) => (
             <button
               key={key}
               onClick={() => {
                 setActiveSection(key);
                 setSidebarOpen(false);
               }}
-              className={`block w-full text-left px-3 py-2 rounded-md font-medium transition ${
+              className={`flex items-center gap-3 w-full text-left px-3 py-2 rounded-md font-medium transition ${
                 activeSection === key
                   ? "bg-purple-100 text-purple-700"
-                  : "text-gray-700 hover:bg-purple-50 hover:text-purple-600"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-purple-600"
               }`}
             >
+              {icon}
               {label}
             </button>
           ))}
-
           {/* Logout Button */}
-          <button
-            onClick={handleLogoutClick}
-            className="block w-full text-left px-3 py-2 rounded-md font-medium transition text-red-600 hover:bg-red-50 hover:text-red-700"
+          <button 
+            onClick={handleLogoutClick} 
+            className="flex items-center gap-3 w-full text-left px-3 py-2 rounded-md font-medium transition text-red-600 hover:bg-red-50 hover:text-red-700"
           >
-            🚪 Logout
+            <LogOut size={20} />
+            Logout
           </button>
         </nav>
       </aside>
@@ -85,5 +92,6 @@ const Sidebar = ({
     </>
   );
 };
+
 
 export default Sidebar;
