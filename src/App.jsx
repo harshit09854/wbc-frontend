@@ -1,45 +1,49 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom"; // ✅ Changed to HashRouter
 import { AuthProvider } from "./contexts/AuthContext";
+import CartProvider from "./contexts/CartContext";
 
-// src/components
+// Components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import ProductList from "./components/ProductList";
-import MemberDetails from "./components/MemberDetails";
-import MembersSection from "./components/MembersSection";
-// import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "./components/ScrollToTop";
 
-// src/pages
+// Pages
 import Home from "./pages/Home/Home";
 import ProductDetails from "./pages/ProductInfo/ProductDetails";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import Founderpage from "./pages/AboutUs/FounderPage";
-
 import Login from "./pages/Buyer/Login";
 import Signup from "./pages/Buyer/Signup";
-
 import SellerDashboard from "./pages/Seller/SellerDashboard";
 import BecomeSeller from "./pages/Seller/BecomeSeller";
 import SellerAccount from "./pages/Seller/SellerAccount/SellerAccount";
 import AddProduct from "./pages/Seller/AddProduct";
 import SellerLogin from "./pages/Seller/SellerLogin";
 import TermsConditions from "./pages/Seller/TermsConditions";
-
 import Cart from "./pages/UserProfile/Cart";
 import Billing from "./pages/UserProfile/Billing";
 import Payment from "./pages/UserProfile/Payment";
 import WishlistItems from "./pages/UserProfile/WishlistItems";
 import OrderPage from "./pages/UserProfile/OrderPage";
 import MyProfilePage from "./pages/UserProfile/Profile";
-import CartProvider from "./contexts/CartContext";
+import ProductList from "./components/ProductList";
+import MembersSection from "./components/MembersSection";
+import MemberDetails from "./components/MemberDetails";
 import UpcomingEvents from "./pages/Home/UpcomingEvents";
-import ScrollToTop from "./components/ScrollToTop";
+
+// Layout for pages with Navbar + Footer
+const Layout = ({ children }) => (
+  <>
+    <Navbar />
+    <div className="min-h-[calc(100vh-200px)]">{children}</div>
+    <Footer />
+  </>
+);
 
 function App() {
   const [productsData, setProductsData] = useState([]);
-  // const [loadingProducts, setLoadingProducts] = useState(true);
 
   return (
     <AuthProvider>
@@ -47,60 +51,37 @@ function App() {
         <Router>
           <ScrollToTop />
           <Routes>
-            {/* Route for MemberDetails without Navbar and Footer */}
+            {/* Route without Navbar/Footer */}
             <Route path="/members/:id" element={<MemberDetails />} />
 
-            {/* All other routes with Navbar and Footer */}
+            {/* Routes with Navbar/Footer */}
             <Route
-              path="/*"
-              element={
-                <div className="App">
-                  <Navbar />
-                  <Routes>
-                    {/* <ScrollToTop /> */}
-                    <Route path="/" element={<Home />} />
-                    <Route path="/about-us" element={<AboutUs />} />
-                    <Route path="/contact-us" element={<ContactUs />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route
-                      path="/seller-dashboard"
-                      element={<SellerDashboard />}
-                    />
-                    <Route path="/become-seller" element={<BecomeSeller />} />
-                    <Route path="/seller-account" element={<SellerAccount />} />
-                    <Route path="/products" element={<ProductList />} />
-                    <Route
-                      path="/product/:productId"
-                      element={<ProductDetails />}
-                    />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/billing" element={<Billing />} />
-                    <Route path="/payment" element={<Payment />} />
-                    <Route path="/wishlist" element={<WishlistItems />} />
-                    <Route path="/seller-login" element={<SellerLogin />} />
-                    <Route path="/add-product" element={<AddProduct />} />
-                    <Route path="/orders" element={<OrderPage />} />
-                    <Route path="/my-profile" element={<MyProfilePage />} />
-                    <Route path="/members" element={<MembersSection />} />
-                    <Route path="/members/:id" element={<MemberDetails />} />
-                    <Route path="/founder" element={<Founderpage />} />
-                    <Route
-                      path="/upcoming-events"
-                      element={<UpcomingEvents />}
-                    />
-                    <Route
-                      path="/terms-conditions"
-                      element={<TermsConditions />}
-                    />
-                  </Routes>
-                  <Footer />
-                </div>
-              }
+              path="/"
+              element={<Layout><Home /></Layout>}
             />
+            <Route path="/about-us" element={<Layout><AboutUs /></Layout>} />
+            <Route path="/contact-us" element={<Layout><ContactUs /></Layout>} />
+            <Route path="/login" element={<Layout><Login /></Layout>} />
+            <Route path="/signup" element={<Layout><Signup /></Layout>} />
+            <Route path="/seller-dashboard" element={<Layout><SellerDashboard /></Layout>} />
+            <Route path="/become-seller" element={<Layout><BecomeSeller /></Layout>} />
+            <Route path="/seller-account" element={<Layout><SellerAccount /></Layout>} />
+            <Route path="/products" element={<Layout><ProductList /></Layout>} />
+            <Route path="/product/:productId" element={<Layout><ProductDetails /></Layout>} />
+            <Route path="/cart" element={<Layout><Cart /></Layout>} />
+            <Route path="/billing" element={<Layout><Billing /></Layout>} />
+            <Route path="/payment" element={<Layout><Payment /></Layout>} />
+            <Route path="/wishlist" element={<Layout><WishlistItems /></Layout>} />
+            <Route path="/seller-login" element={<Layout><SellerLogin /></Layout>} />
+            <Route path="/add-product" element={<Layout><AddProduct /></Layout>} />
+            <Route path="/orders" element={<Layout><OrderPage /></Layout>} />
+            <Route path="/my-profile" element={<Layout><MyProfilePage /></Layout>} />
+            <Route path="/members" element={<Layout><MembersSection /></Layout>} />
+            <Route path="/founder" element={<Layout><Founderpage /></Layout>} />
+            <Route path="/upcoming-events" element={<Layout><UpcomingEvents /></Layout>} />
+            <Route path="/terms-conditions" element={<Layout><TermsConditions /></Layout>} />
           </Routes>
         </Router>
-        {/* <ScrollToTop /> */}
       </CartProvider>
     </AuthProvider>
   );
