@@ -208,16 +208,16 @@ const BecomeSeller = () => {
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData((prev) => ({
-      ...prev,
-      qr: file || null,
-    }));
-    if (file) {
-      setErrors((prev) => ({ ...prev, qr: "" }));
-    }
-  };
+  // const handleFileChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     qr: file || null,
+  //   }));
+  //   if (file) {
+  //     setErrors((prev) => ({ ...prev, qr: "" }));
+  //   }
+  // };
 
   // --- EDIT START: Added handler for profile photo ---
   const handleProfilePhotoChange = (e) => {
@@ -251,7 +251,7 @@ const BecomeSeller = () => {
       AllFormData.append("profileImage", formData.profileImage);
       // --- EDIT END ---
 
-      AllFormData.append("qr", formData.qr); // The QR file
+      // AllFormData.append("qr", formData.qr); // The QR file
 
       try {
         const response = await axiosInstance.post(
