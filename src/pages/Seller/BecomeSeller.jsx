@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axiosInstance from "../../api/axiosInstance";
 
-// ... (Modal and FileUploadUI components are unchanged) ...
+// ... (Modal component is unchanged) ...
 const Modal = ({ title, message, onClose }) => (
   <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div className="bg-white rounded-lg p-8 max-w-md w-full text-center">
@@ -20,6 +20,7 @@ const Modal = ({ title, message, onClose }) => (
   </div>
 );
 
+// --- THIS COMPONENT IS NO LONGER USED, BUT WE CAN LEAVE IT ---
 const FileUploadUI = ({ qr }) => (
   <div className="flex flex-col items-center justify-center pt-5 pb-6">
     <svg
@@ -55,11 +56,7 @@ const FileUploadUI = ({ qr }) => (
   </div>
 );
 
-// --- EDIT START: Added new component for profile photo preview ---
-/**
- * A UI component to display a circular preview of the selected profile photo
- * or a default avatar icon.
- */
+// ... (ProfilePhotoUploadUI component is unchanged) ...
 const ProfilePhotoUploadUI = ({ file }) => {
   const [previewUrl, setPreviewUrl] = useState(null);
 
@@ -68,11 +65,8 @@ const ProfilePhotoUploadUI = ({ file }) => {
       setPreviewUrl(null);
       return;
     }
-    // Create an object URL for the file
     const objectUrl = URL.createObjectURL(file);
     setPreviewUrl(objectUrl);
-
-    // Free memory when the component unmounts or file changes
     return () => URL.revokeObjectURL(objectUrl);
   }, [file]);
 
@@ -89,7 +83,6 @@ const ProfilePhotoUploadUI = ({ file }) => {
           className="w-full h-full object-cover"
         />
       ) : (
-        // Default Avatar Icon
         <svg
           className="w-20 h-20"
           fill="currentColor"
@@ -106,7 +99,6 @@ const ProfilePhotoUploadUI = ({ file }) => {
     </div>
   );
 };
-// --- EDIT END ---
 
 const BecomeSeller = () => {
   const navigate = useNavigate();
@@ -122,10 +114,9 @@ const BecomeSeller = () => {
     address: "",
     pinCode: "",
     description: "",
-    // --- EDIT START: Added profilePhoto to state ---
     profilePhoto: null,
-    // --- EDIT END ---
-    qr: null,
+    // --- QR REMOVED (1/5) ---
+    // qr: null,
     acceptTerms: false,
   });
 
@@ -153,10 +144,9 @@ const BecomeSeller = () => {
       address,
       pinCode,
       description,
-      // --- EDIT START: Destructure profilePhoto ---
       profileImage,
-      // --- EDIT END ---
-      qr,
+      // --- QR REMOVED (2/5) ---
+      // qr,
       acceptTerms,
     } = formData;
 
@@ -171,9 +161,7 @@ const BecomeSeller = () => {
     else if (password.length < 6)
       newErrors.password = "Password must be at least 6 characters";
 
-    // --- EDIT START: Add profileImage validation ---
     if (!profileImage) newErrors.profileImage = "Profile photo is required";
-    // --- EDIT END ---
 
     // Business Info
     if (!businessName.trim())
@@ -184,12 +172,14 @@ const BecomeSeller = () => {
     else if (!/^\d{6}$/.test(pinCode))
       newErrors.pinCode = "PIN code must be 6 digits";
 
-    // Product Info & File
+    // Product Info
     if (!description.trim())
       newErrors.description = "Business description is required";
     else if (description.trim().length < 50)
       newErrors.description = "Description must be at least 50 characters";
-    if (!qr) newErrors.qr = "QR Code file is required";
+
+    // --- QR REMOVED (2/5) ---
+    // if (!qr) newErrors.qr = "QR Code file is required";
 
     // Terms
     if (!acceptTerms)
@@ -208,6 +198,8 @@ const BecomeSeller = () => {
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
+  // --- QR REMOVED (3/5) ---
+  /*
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setFormData((prev) => ({
@@ -218,8 +210,8 @@ const BecomeSeller = () => {
       setErrors((prev) => ({ ...prev, qr: "" }));
     }
   };
+  */
 
-  // --- EDIT START: Added handler for profile photo ---
   const handleProfilePhotoChange = (e) => {
     const file = e.target.files[0];
     setFormData((prev) => ({
@@ -230,7 +222,6 @@ const BecomeSeller = () => {
       setErrors((prev) => ({ ...prev, profileImage: "" }));
     }
   };
-  // --- EDIT END ---
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -246,12 +237,10 @@ const BecomeSeller = () => {
       AllFormData.append("businessAddress", formData.address);
       AllFormData.append("pincode", formData.pinCode);
       AllFormData.append("businessDescription", formData.description);
-
-      // --- EDIT START: Append profilePhoto to form data ---
       AllFormData.append("profileImage", formData.profileImage);
-      // --- EDIT END ---
 
-      AllFormData.append("qr", formData.qr); // The QR file
+      // --- QR REMOVED (4/5) ---
+      // AllFormData.append("qr", formData.qr); // The QR file
 
       try {
         const response = await axiosInstance.post(
@@ -272,8 +261,6 @@ const BecomeSeller = () => {
           email: formData.email,
           role: role,
           businessName: formData.businessName,
-          // You might want to get the profile photo URL from the response
-          // and add it to userData here if the API returns it.
         };
 
         login(userData, token);
@@ -362,19 +349,17 @@ const BecomeSeller = () => {
                 ))}
               </div>
 
-              {/* --- EDIT START: Added Profile Photo Upload Section --- */}
+              {/* Profile Photo Upload Section */}
               <div className="pt-4">
                 <label className="block text-sm font-medium text-gray-700 mb-3">
                   Upload Profile Photo *
                 </label>
                 <div className="flex items-center gap-6">
-                  {/* The clickable preview area */}
                   <label
                     htmlFor="profile-photo-file"
                     className="cursor-pointer"
                   >
                     <ProfilePhotoUploadUI file={formData.profileImage} />
-                    {/* The actual file input is hidden */}
                     <input
                       id="profile-photo-file"
                       type="file"
@@ -383,8 +368,6 @@ const BecomeSeller = () => {
                       accept="image/png, image/jpeg"
                     />
                   </label>
-
-                  {/* A separate button to change photo, also clickable */}
                   <label
                     htmlFor="profile-photo-file"
                     className="cursor-pointer bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
@@ -392,14 +375,12 @@ const BecomeSeller = () => {
                     {formData.profileImage ? "Change Photo" : "Select Photo"}
                   </label>
                 </div>
-                {/* Error message for profile photo */}
                 {errors.profileImage && (
                   <p className="text-red-500 text-sm mt-2">
                     {errors.profileImage}
                   </p>
                 )}
               </div>
-              {/* --- EDIT END --- */}
 
               <p className="text-gray-600 text-center sm:text-left">
                 Already a seller?{" "}
@@ -412,7 +393,7 @@ const BecomeSeller = () => {
               </p>
             </div>
 
-            {/* --- Section 2: Business Info --- */}
+            {/* Section 2: Business Info */}
             <div className="space-y-6">
               <h2 className="text-2xl font-semibold text-gray-800 border-b pb-3">
                 Business Information
@@ -471,7 +452,7 @@ const BecomeSeller = () => {
               </div>
             </div>
 
-            {/* ... (Section 3 & 4 are unchanged) ... */}
+            {/* Section 3: Product & Payment Information */}
             <div className="space-y-6">
               <h2 className="text-2xl font-semibold text-gray-800 border-b pb-3">
                 Product & Payment Information
@@ -501,7 +482,8 @@ const BecomeSeller = () => {
                 </div>
               </div>
 
-              {/* File Upload */}
+              {/* --- QR REMOVED (5/5) --- */}
+              {/*
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Upload Your Payment QR-Code *
@@ -527,8 +509,10 @@ const BecomeSeller = () => {
                   <p className="text-red-500 text-sm mt-1">{errors.qr}</p>
                 )}
               </div>
+              */}
             </div>
 
+            {/* Section 4: Terms & Conditions */}
             <div className="space-y-6">
               <h2 className="text-2xl font-semibold text-gray-800 border-b pb-3">
                 Terms & Conditions
@@ -547,11 +531,6 @@ const BecomeSeller = () => {
                   <p>
                     3. Maintain fair pricing and transparent business practices.
                   </p>
-                  {/* ... other terms ... */}
-                  {/* <p>
-                    4. Payments processed within 7-10 business days after order
-                    completion.
-                  </p> */}
                 </div>
               </div>
 
@@ -573,7 +552,7 @@ const BecomeSeller = () => {
                   >
                     Terms & Conditions
                   </Link>{" "}
-                  and and Seller Agreement *
+                  and and Seller Agreement *
                 </span>
               </label>
               {errors.acceptTerms && (
@@ -582,7 +561,7 @@ const BecomeSeller = () => {
                 </p>
               )}
 
-              {/* --- Final Submit Button --- */}
+              {/* Final Submit Button */}
               <div className="flex justify-end mt-8">
                 <button
                   type="submit"

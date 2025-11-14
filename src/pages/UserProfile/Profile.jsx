@@ -165,64 +165,6 @@ export default function MyProfilePage() {
             </div>
           </div>
         </div>
-
-        {/* Bottom Section - Orders and Settings */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
-          {/* Orders Summary */}
-          <div className="bg-white border rounded-2xl shadow-sm hover:shadow-md p-5 transition-all duration-200">
-            <div className="flex items-center gap-3 mb-3">
-              <Package className="text-green-600" size={22} />
-              <h2 className="text-lg font-semibold text-gray-800">My Orders</h2>
-            </div>
-            <p className="text-sm text-gray-500 mb-2">
-              View and manage your recent orders.
-            </p>
-            <p className="font-medium text-gray-800 mb-4">
-              Active Orders: <span className="text-green-600">3</span>
-            </p>
-            <button className="text-blue-600 hover:underline text-sm font-medium">
-              View All Orders
-            </button>
-          </div>
-
-          {/* Password & Security */}
-          <div className="bg-white border rounded-2xl shadow-sm hover:shadow-md p-5 transition-all duration-200">
-            <div className="flex items-center gap-3 mb-3">
-              <Lock className="text-yellow-600" size={22} />
-              <h2 className="text-lg font-semibold text-gray-800">
-                Password & Security
-              </h2>
-            </div>
-            <p className="text-sm text-gray-500 mb-2">
-              Keep your account safe and secure.
-            </p>
-            <p className="font-medium text-gray-800 mb-4">
-              Password: <span className="text-gray-500">••••••••</span>
-            </p>
-            <button className="text-blue-600 hover:underline text-sm font-medium">
-              Change Password
-            </button>
-          </div>
-
-          {/* Membership */}
-          <div className="bg-white border rounded-2xl shadow-sm hover:shadow-md p-5 transition-all duration-200">
-            <div className="flex items-center gap-3 mb-3">
-              <Shield className="text-purple-600" size={22} />
-              <h2 className="text-lg font-semibold text-gray-800">
-                Prime Membership
-              </h2>
-            </div>
-            <p className="text-sm text-gray-500 mb-2">
-              Get faster delivery and exclusive offers.
-            </p>
-            <p className="font-medium text-gray-800 mb-4">
-              Status: <span className="text-green-600">Active</span>
-            </p>
-            <button className="text-blue-600 hover:underline text-sm font-medium">
-              Manage Membership
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );
