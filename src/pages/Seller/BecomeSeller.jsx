@@ -489,4 +489,4 @@ const BecomeSeller = () => {
   );
 };
 
-export default BecomeSeller;
+export default BecomeSeller;
