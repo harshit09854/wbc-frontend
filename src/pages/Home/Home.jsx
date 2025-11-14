@@ -8,41 +8,59 @@ import UpcomingEvents from "./UpcomingEvents";
 
 const Home = () => {
   return (
-    <div>
+    <div className="">
       {/* 🌸 HERO SECTION */}
-      <section className="relative min-h-[90vh] flex flex-col md:flex-row items-center bg-gradient-to-br from-[#6A0DAD] via-[#9B59B6] to-[#F15F79]">
-        {/* Background Image */}
-        <div className="w-full h-full md:absolute left-0 top-0">
-          <img
-            src="/Womens.jpg"
-            alt="Women Business Circle Members"
-            className="w-full h-[50vh] md:h-[90vh] object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
-        </div>
+      <section
+        className="rounded-2xl overflow-hidden text-white p-8 shadow-xl"
+        style={{
+          backgroundImage: `
+      radial-gradient(circle at 2px 2px, #ccc 1px, transparent 0),
+      linear-gradient(90deg, rgba(106,13,173,1) 0%, rgba(155, 89, 182, 0.5))
+    `,
+          backgroundSize: "40px 40px, cover",
+          backgroundBlendMode: "overlay",
+        }}
+      >
+        <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-12">
+          {/* Left Content */}
+          <div className="w-full md:w-1/2 text-center md:text-left">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              Manage Your Business Smarter & Faster
+            </h1>
+            <p className="text-white/90 text-lg mb-8">
+              Join a vibrant community of women entrepreneurs offering wellness
+              services and handmade products. Collaborate, grow, and showcase
+              your story — all in one place.
+            </p>
+            <div className="flex flex-col sm:flex-row sm:space-x-4 justify-center md:justify-start">
+              <Link to="/become-">
+                <button className="w-full sm:w-auto mb-3 sm:mb-0 bg-white text-[#2A7B9B] px-8 py-3 rounded font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  Become a Member
+                </button>
+              </Link>
+              <Link to="/upcoming-events">
+                <button className="w-full sm:w-auto bg-white/20 backdrop-blur-sm text-white px-8 py-3 rounded font-semibold hover:bg-white/30 transition-colors duration-300 border border-white/30">
+                  News & Events
+                </button>
+              </Link>
+            </div>
+          </div>
 
-        {/* Glassy Content Card */}
-        <div className="relative w-[90%] sm:w-[80%] md:w-[45%] lg:w-[38%] bg-white/20 backdrop-blur-md border border-white/20 text-white p-6 sm:p-8 lg:p-12 rounded shadow-xl mx-4 md:mr-10 md:ml-auto -mt-8 md:mt-0 transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-lg hover:border-white/30">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight text-white/90">
-            Women Business Circle
-          </h1>
-          <p className="text-white/80 mb-6 text-base">
-            A community of women entrepreneurs offering{" "}
-            <strong>wellness services</strong> and
-            <strong> handmade products</strong> that celebrate creativity,
-            connection, and care.
-          </p>
-          <div className="flex flex-col sm:flex-row sm:space-x-4">
-            <Link to="/upcoming-events">
-              <button className="w-full sm:w-auto mt-3 bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] text-white px-8 py-3 rounded font-semibold hover:from-[#B24592] hover:to-[#F15F79] transition-all duration-300 shadow-lg hover:shadow-xl">
-                Upcoming Events
-              </button>
-            </Link>
-            <Link to="/become-seller">
-              <button className="w-full sm:w-auto mt-3 bg-white/30 backdrop-blur-sm text-white px-8 py-3 rounded font-semibold hover:bg-white/50 transition-colors duration-300">
-                Join as a Member
-              </button>
-            </Link>
+          {/* Right Image Preview */}
+          <div className="w-full md:w-1/2 relative">
+            <div className="bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-200">
+              <div className="bg-[#2A7B9B] text-white text-center py-2 font-semibold">
+                Our Members
+              </div>
+              <img
+                src="/Womens.jpg"
+                alt="Dashboard Preview"
+                className="w-full h-[300px] object-cover"
+              />
+            </div>
+            {/* Decorative Gradient Circles */}
+            <div className="absolute -top-6 -right-6 w-24 h-24 bg-pink-300 rounded-full opacity-30 blur-2xl -z-10"></div>
+            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-300 rounded-full opacity-30 blur-2xl -z-10"></div>
           </div>
         </div>
       </section>
@@ -79,20 +97,17 @@ const Home = () => {
       </section>
 
       {/* Our Members */}
-      <div className="mt-5 ml-5 mr-5 max-w-7xl mx-auto px-4 md:px-8"></div>
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold">Our Active Members</h2>
-        <Link to="/members">
-          <button
-            // onClick={() => navigate("/members")}
-            className="text-white sm:px-2 px-4 py-2 rounded font-medium bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300 md:h-11 items-center justify-center flex"
-          >
-            View All Members
-          </button>
-        </Link>
+      <div className="mt-5 ml-5 mr-5 max-w-7xl mx-auto px-4 md:px-8">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold">Our Active Members</h2>
+          <Link to="/members">
+            <button className="text-white sm:px-2 px-4 py-2 rounded font-medium bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300 md:h-11 items-center justify-center flex">
+              View All Members
+            </button>
+          </Link>
+        </div>
       </div>
-      <MembersSection />
-      {/* </div> */}
+      <MembersSection limit={8} />
 
       {/* 🌷 OUR PRODUCTS */}
       {/* <section className="py-16 md:py-24 bg-amber-50">
@@ -191,6 +206,25 @@ const Home = () => {
 
       {/* FAQ Section */}
       <FAQSection />
+
+      {/* CTA */}
+      <section className="py-10 bg-[#2A5C4F] text-white text-center">
+        <div className="max-w-4xl mx-auto px-4">
+          <Heart className="w-16 h-16 mx-auto mb-6 text-[#E8B931]" />
+          <h2 className="text-5xl font-bold mb-6">
+            Ready to Start Your Journey?
+          </h2>
+          <p className="text-xl mb-10 text-white/80">
+            Join a community that believes in your dreams and supports your
+            growth every step of the way.
+          </p>
+          <Link to="/become-seller">
+            <button className="bg-[#E8B931] text-[#2A5C4F] px-8 py-2 rounded  font-bold text-lg hover:bg-[#D4A621] transition-all duration-300 shadow-xl hover:shadow-2xl">
+              Become a Member Today
+            </button>
+          </Link>
+        </div>
+      </section>
     </div>
   );
 };

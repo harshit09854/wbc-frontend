@@ -35,7 +35,7 @@ import OrderPage from "./pages/UserProfile/OrderPage";
 import MyProfilePage from "./pages/UserProfile/Profile";
 import CartProvider from "./contexts/CartContext";
 import UpcomingEvents from "./pages/Home/UpcomingEvents";
-// import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const [productsData, setProductsData] = useState([]);
@@ -45,6 +45,7 @@ function App() {
     <AuthProvider>
       <CartProvider productsData={productsData}>
         <Router>
+          <ScrollToTop />
           <Routes>
             {/* Route for MemberDetails without Navbar and Footer */}
             <Route path="/members/:id" element={<MemberDetails />} />

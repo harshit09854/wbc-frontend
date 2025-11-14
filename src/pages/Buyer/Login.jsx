@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import logo from "../../assets/logo.png";
 
 // Login component
 const Login = () => {
@@ -63,7 +64,7 @@ const Login = () => {
         <div className="p-8">
           {/* Logo Section */}
           <div className="flex justify-center mb-4 mt-2">
-            <img src="/wbc-logo.png" alt="WBC Logo" className="h-14 w-auto" />
+            <img src={logo} alt="WBC Logo" className="h-14 w-auto" />
           </div>
 
           {/* Welcome Text */}

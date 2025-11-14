@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axiosInstance from "../api/axiosInstance";
 import Navbar from "../components/Navbar";
+import Billing from "../pages/UserProfile/Billing";
+import { Link } from "react-router-dom";
 import {
   ArrowLeft,
   Briefcase,
@@ -198,12 +200,14 @@ const MemberDetails = () => {
                         </p>
 
                         {/* ✨ Buy Now Button */}
-                        <button
-                          onClick={() => navigate(`/buy/${prod._id}`)}
-                          className="mt-3 text-white px-4 py-2 rounded-lg font-medium bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300"
-                        >
-                          Buy Now
-                        </button>
+                        <Link to="/billing">
+                          <button
+                            onClick={() => navigate(`/billing/${prod._id}`)}
+                            className="mt-3 text-white px-4 py-2 rounded-lg font-medium bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300"
+                          >
+                            Buy Now
+                          </button>
+                        </Link>
                       </div>
                     </div>
                   </div>

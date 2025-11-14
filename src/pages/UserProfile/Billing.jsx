@@ -6,12 +6,12 @@ import { cartAuth } from "../../contexts/CartContext";
 const Billing = () => {
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
-  
+
   // 1. Access getTotalCartAmount from context
   const { getTotalCartAmount } = cartAuth();
 
   // Renamed state for clarity
-  const [subtotal, setSubtotal] = useState(0); 
+  const [subtotal, setSubtotal] = useState(0);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -25,8 +25,8 @@ const Billing = () => {
   });
 
   // Fixed Tax amount (as a number)
-  const taxAmount = 40; 
-  
+  const taxAmount = 40;
+
   // Calculate final total based on state
   const finalTotal = subtotal + taxAmount;
 
@@ -49,9 +49,9 @@ const Billing = () => {
       email: user?.email || prev.email,
       phone: user?.phone || prev.phone,
     }));
-    
+
     // Dependencies: Added getTotalCartAmount to re-run if cart state changes in context
-  }, [isAuthenticated, navigate, user, getTotalCartAmount]); 
+  }, [isAuthenticated, navigate, user, getTotalCartAmount]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -85,7 +85,11 @@ const Billing = () => {
               Billing Details
             </h2>
 
-            <form onSubmit={handleSubmit} className="space-y-6" id="billing-form">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6"
+              id="billing-form"
+            >
               {/* Personal Information */}
               <div className="space-y-4">
                 <h3 className="text-lg font-medium text-gray-900">
@@ -249,7 +253,7 @@ const Billing = () => {
                     />
                     <span>UPI</span>
                   </label>
-                  
+
                   {/* You can re-enable other methods here */}
                 </div>
               </div>
@@ -268,7 +272,7 @@ const Billing = () => {
               <div className="flex justify-between text-gray-600">
                 <span>Subtotal</span>
                 {/* 🎯 Updated to use subtotal state */}
-                <span>{formatPrice(subtotal)}</span> 
+                <span>{formatPrice(subtotal)}</span>
               </div>
 
               <div className="flex justify-between text-gray-600">
@@ -286,7 +290,7 @@ const Billing = () => {
                 <div className="flex justify-between text-lg font-semibold">
                   <span>Total</span>
                   {/* 🎯 Updated to show the final calculated total */}
-                  <span>{formatPrice(finalTotal)}</span> 
+                  <span>{formatPrice(finalTotal)}</span>
                 </div>
               </div>
             </div>

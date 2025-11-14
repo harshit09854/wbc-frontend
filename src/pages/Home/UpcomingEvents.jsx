@@ -8,7 +8,7 @@ function UpcomingEvents() {
       img: "event1.jpg",
       title: "Networking Brunch",
       desc: "Connect with inspiring women and build lasting collaborations.",
-      place: "Grand Hall, City Center, Jaipur",
+      place: "Aarawali Hospital, Udaipur",
       details: [
         "Our Networking Brunch is designed to bring together women entrepreneurs, mentors, and community leaders in a warm and welcoming environment. Over freshly prepared meals and coffee, participants will have the opportunity to share their stories, exchange ideas, and build lasting collaborations.",
         "The brunch emphasizes the importance of community-driven growth, where every conversation can spark a new partnership or business opportunity. Attendees will be guided through structured networking activities, ensuring that everyone has the chance to connect meaningfully. The event also features short talks from experienced professionals who will share insights on overcoming challenges in business, balancing creativity with strategy, and fostering resilience. Beyond professional growth, the brunch is also about celebrating individuality and creativity, encouraging women to showcase their products and services in an informal setting.",
@@ -24,14 +24,14 @@ function UpcomingEvents() {
         "The Leadership Workshop is a transformative program tailored for women entrepreneurs and professionals seeking to enhance their leadership capabilities. Hosted at the Innovation Hub in Udaipur, the workshop combines interactive sessions, group discussions, and practical exercises to help participants develop confidence, communication skills, and strategic thinking.",
         "Expert mentors from diverse industries will guide attendees through modules on decision-making, conflict resolution, and team management. The workshop emphasizes experiential learning, encouraging participants to engage in role-playing scenarios and case studies that mirror real-world challenges.",
         "By fostering collaboration, the program ensures that women not only learn from mentors but also from each other’s experiences. The venue itself, the Innovation Hub, is designed to inspire creativity and forward-thinking, with modern facilities and collaborative spaces that encourage active participation. The workshop also integrates mindfulness and self-reflection practices, recognizing that effective leadership begins with self-awareness.",
-        "Participants will leave with actionable strategies to implement in their businesses or careers, along with a renewed sense of purpose and confidence. This 250-word description underscores the workshop’s holistic approach, blending professional skill-building with personal growth. It is not just about learning leadership theories but about embodying them in practice, ensuring that every woman walks away empowered to lead with vision, empathy, and resilience.",
+        "Participants will leave with actionable strategies to implement in their businesses or careers, along with a renewed sense of purpose and confidence. ",
       ],
     },
     {
       img: "event3.jpg",
       title: "Mentorship Program",
       desc: "One-on-one mentoring from experienced entrepreneurs.",
-      place: "Community Center, Delhi",
+      place: "Amar Ashish Hospital, Madhuban, Udaipur",
       details: [
         "The Mentorship Program is a cornerstone initiative of the Women Business Circle, offering personalized guidance to women entrepreneurs at every stage of their journey. Taking place at the Community Center in Delhi, the program pairs participants with seasoned mentors who bring years of experience in diverse industries.",
         "Each mentorship relationship is tailored to the mentee’s specific goals, whether it is scaling a business, improving marketing strategies, or navigating financial challenges. The program emphasizes trust, collaboration, and accountability, ensuring that mentees receive not only advice but also actionable steps to achieve their objectives.",
@@ -67,7 +67,16 @@ function UpcomingEvents() {
 
   return (
     <div>
-      <section className="py-16 md:py-24 bg-white">
+      <section
+        className="py-16 md:py-24 rounded-2xl overflow-hidden"
+        style={{
+          backgroundImage: `
+      radial-gradient(circle at 2px 2px, #ccc 1px, transparent 0),
+      linear-gradient(to bottom, #ffffff, #ffffff)
+    `,
+          backgroundSize: "40px 40px, cover",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 md:px-8 text-center">
           {/* Heading */}
           <div className="flex items-center justify-center mb-4">

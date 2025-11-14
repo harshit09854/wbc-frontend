@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
+import logo from "../../assets/logo.png";
 
 // Signup component
 const Signup = () => {
@@ -82,6 +83,10 @@ const Signup = () => {
         <div className="p-8">
           {/* Form Header */}
           <div className="mb-6">
+            {/* Logo */}
+            <div className="flex justify-center mb-4 mt-2">
+              <img src={logo} alt="WBC Logo" className="h-14 w-auto" />
+            </div>
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-[#2E2E2E] mb-1">
                 Create Account
