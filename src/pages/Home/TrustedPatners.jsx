@@ -1,14 +1,14 @@
 // components/TrustedPartners.jsx
 import React from 'react';
-import news121Logo from "../../assets/One2all.jpg";
+import One2all from "../../assets/One2all.jpg";
 import kvantalogo from "../../assets/kvantalabs.jpg";
 
 const TrustedPartners = () => {
   const partners = [
     {
-      name: "121 NEWS",
-      logo: news121Logo,
-      subtitle: "121 NEWS"
+      name: "One2all NEWS",
+      logo: One2all,
+      subtitle: "One2all NEWS"
     },
     
     {
