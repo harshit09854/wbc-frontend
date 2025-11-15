@@ -63,9 +63,9 @@ export default function MyProfilePage() {
         </div>
 
         {/* Profile Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1  md:grid-cols-3 gap-8">
           {/* Left - Profile Photo */}
-          <div className="flex flex-col items-center bg-gray-50 border rounded-2xl p-6 shadow-sm">
+          {/* <div className="flex flex-col items-center bg-gray-50 border rounded-2xl p-6 shadow-sm">
             <img
               alt="Profile"
               className="w-32 h-32 rounded-full object-cover border-4 border-blue-500 shadow-md mb-4"
@@ -81,11 +81,11 @@ export default function MyProfilePage() {
                 onChange={handleImageUpload}
               />
             </label>
-          </div>
+          </div> */}
 
           {/* Middle - User Info */}
-          <div className="md:col-span-2 bg-gray-50 border rounded-2xl p-6 shadow-sm space-y-5">
-            <div className="grid sm:grid-cols-2 gap-5">
+          <div className="md:col-span-2 bg-gray-50 border rounded-2xl w-250  p-6 shadow-sm space-y-5">
+            <div className="grid sm:grid-cols-2  gap-5">
               {/* Full Name */}
               <div>
                 <label className="text-sm text-gray-500">Full Name</label>
@@ -205,7 +205,7 @@ export default function MyProfilePage() {
           </div>
 
           {/* Membership */}
-          <div className="bg-white border rounded-2xl shadow-sm hover:shadow-md p-5 transition-all duration-200">
+          {/* <div className="bg-white border rounded-2xl shadow-sm hover:shadow-md p-5 transition-all duration-200">
             <div className="flex items-center gap-3 mb-3">
               <Shield className="text-purple-600" size={22} />
               <h2 className="text-lg font-semibold text-gray-800">
@@ -221,7 +221,7 @@ export default function MyProfilePage() {
             <button className="text-blue-600 hover:underline text-sm font-medium">
               Manage Membership
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

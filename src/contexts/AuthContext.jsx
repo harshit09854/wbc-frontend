@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-
+import axiosInstance from "../api/axiosInstance";
 const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
     return user?.role === "seller";
   };
 
-  const isBuyer = () => {
+  const isBuyer = () => { 
     return user?.role === "buyer";
   };
 

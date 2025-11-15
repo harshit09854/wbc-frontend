@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useState, useRef, useEffect } from "react";
+import axiosInstance from "../api/axiosInstance";
 import {
   FaShoppingCart,
   FaUser,
@@ -18,19 +19,22 @@ import {
 import logo from "../assets/logo.png";
 
 const Navbar = () => {
-  const { isAuthenticated, logout, user, isSeller,login } = useAuth();
+  const { isAuthenticated, logout,isBuyer, user, isSeller } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const dropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const location = useLocation();
+  const [User, setUser] = useState([]);
+  // console.log(login());
 
   useEffect(() => {
     const updateCartCount = () => {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       setCartCount(cart.length);
     };
+    
 
     updateCartCount();
     window.addEventListener("cartUpdated", updateCartCount);
@@ -38,6 +42,30 @@ const Navbar = () => {
       window.removeEventListener("cartUpdated", updateCartCount);
     };
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.get("/buyer/dashboard", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        console.log(response.data.buyerData);
+
+        setUser(response.data.buyerData);
+      } catch {
+        // res.send("error");
+        console.log("error");
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+
+
 
   const isSellerPage =
     location.pathname === "/become-seller" ||
@@ -152,7 +180,7 @@ const Navbar = () => {
                 <button className="flex items-center space-x-2 text-white hover:bg-[#B24592] font-medium border border-transparent rounded-md px-4 py-2 transition-all duration-300 bg-[#6A0DAD] bg-opacity-80 hover:bg-opacity-100">
                   <FaUser className="text-lg" />
                   <span className="max-w-32 truncate">
-                    {user?.name || user?.businessName || "User"}
+                    {User.name || user?.name || "User"}
                   </span>
                 </button>
 
@@ -166,10 +194,10 @@ const Navbar = () => {
                 >
                   <div className="px-4 py-2 border-b border-gray-100">
                     <p className="text-sm font-semibold text-gray-800 truncate">
-                      {user?.name || user?.businessName || "User"}
+                      {User.name  || user?.name || "User"}
                     </p>
                     <p className="text-xs text-gray-500 truncate">
-                      {user?.email || ""}
+                      {User?.email ||user.email || ""}
                     </p>
                     {isSeller() && (
                       <p className="text-xs text-purple-600 font-medium mt-1">
@@ -189,14 +217,16 @@ const Navbar = () => {
                     </Link>
                   )}
 
-                  <Link
+                  {isBuyer() && (<Link
                     to="/my-profile"
                     className="flex items-center px-4 py-2 text-gray-700 hover:text-purple-600 hover:bg-purple-50 transition-all duration-300"
                     onClick={() => setIsDropdownOpen(false)}
                   >
                     <FaUser className="mr-3 text-gray-500" />
                     <span>My Profile</span>
-                  </Link>
+                  </Link>)}
+                  
+                  
 
                   <div className="border-t border-gray-100 mt-1">
                     <button
