@@ -6,7 +6,7 @@ import MembersSection from "../../components/MembersSection";
 import FAQSection from "./FaqSection";
 import UpcomingEvents from "./UpcomingEvents";
 import TrustedPartners from "./TrustedPatners";
-
+import { useAuth } from "../../contexts/AuthContext";
 const Home = () => {
   return (
     <div className="">

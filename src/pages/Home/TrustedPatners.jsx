@@ -1,6 +1,6 @@
 // components/TrustedPartners.jsx
 import React from 'react';
-import news121Logo from "../../assets/121news.jpg";
+import news121Logo from "../../assets/One2all.jpg";
 import kvantalogo from "../../assets/kvantalabs.jpg";
 
 const TrustedPartners = () => {

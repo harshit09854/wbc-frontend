@@ -57,11 +57,23 @@ const Signup = () => {
 
       // If token is received, log in and r edirect
       if (response.data.token) {
-        login(response.data.token, {
-          name: data.name,
-          email: data.email,
-          role: "buyer",
-        });
+
+  // login(
+  //         {
+  //           name: response.data.name,
+  //           email: data.email,
+  //           role: response.data.role,
+  //           ...response.data.user, // Include additional user data
+  //         },
+  //         response.data.token
+  //       );
+        login({
+          name: response.data.name,
+          email: response.data.email,
+          role: response.data.role,
+        },
+        response.data.token
+        );
         navigate("/"); // Redirect to homepage or dashboard
       } else {
         setError("Signup successful but no token received");
@@ -78,7 +90,7 @@ const Signup = () => {
 
   // JSX for signup form UI
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#F8F0FF] to-white flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 md:py-20 overflow-auto">
+    <div className="min-h-screen bg-linear-to-b from-[#F8F0FF] to-white flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 md:py-20 overflow-auto">
       <div className="max-w-md w-full bg-white rounded-lg shadow-[0_4px_20px_rgba(0,0,0,0.1)] overflow-hidden">
         <div className="p-8">
           {/* Form Header */}

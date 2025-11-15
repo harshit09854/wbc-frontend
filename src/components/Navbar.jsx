@@ -18,7 +18,7 @@ import {
 import logo from "../assets/logo.png";
 
 const Navbar = () => {
-  const { isAuthenticated, logout, user, isSeller } = useAuth();
+  const { isAuthenticated, logout, user, isSeller,login } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
