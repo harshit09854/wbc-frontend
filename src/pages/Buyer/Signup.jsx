@@ -74,6 +74,7 @@ const Signup = () => {
         },
         response.data.token
         );
+        console.log("Signup successful:", response.data);
         navigate("/"); // Redirect to homepage or dashboard
       } else {
         setError("Signup successful but no token received");
@@ -214,7 +215,7 @@ const Signup = () => {
               {error && (
                 <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
                   <div className="flex">
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                       <svg
                         className="h-5 w-5 text-red-400"
                         viewBox="0 0 20 20"
@@ -238,7 +239,7 @@ const Signup = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className={`w-full text-white py-3 rounded-lg font-medium bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] transition-all duration-300 hover:shadow-lg ${
+                className={`w-full text-white py-3 rounded-lg font-medium bg-linear-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] transition-all duration-300 hover:shadow-lg ${
                   isLoading ? "opacity-50 cursor-not-allowed" : ""
                 }`}
               >

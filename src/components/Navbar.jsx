@@ -220,7 +220,7 @@ const Navbar = () => {
                   onMouseLeave={() => setIsDropdownOpen(false)}
                 >
                   <Link to="/login">
-                    <button className="text-black px-4 py-2 transition-all duration-300 font-semibold border border-white bg-transparent hover:bg-gradient-to-r hover:from-[#B24592] hover:to-[#F15F79] hover:text-white hover:shadow-lg">
+                    <button className="text-black px-4 py-2 transition-all duration-300 font-semibold border border-white bg-transparent hover:bg-linear-to-r hover:from-[#B24592] hover:to-[#F15F79] hover:text-white hover:shadow-lg">
                       <div className="flex items-center space-x-2">
                         <FaUser className="text-xl" />
                         <span>Login</span>
@@ -259,7 +259,7 @@ const Navbar = () => {
             {!isSellerPage && !isSeller() && (
               <Link
                 to="/become-seller"
-                className="text-white px-4 py-2 rounded-lg font-medium bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300 flex items-center justify-center"
+                className="text-white px-4 py-2 rounded-lg font-medium bg-linear-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300 flex items-center justify-center"
               >
                 Become a member
               </Link>
@@ -392,7 +392,7 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/login"
-                    className="flex items-center justify-center px-4 py-3 rounded-lg text-white bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] transition-all duration-300 mb-3 font-medium"
+                    className="flex items-center justify-center px-4 py-3 rounded-lg text-white bg-linear-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] transition-all duration-300 mb-3 font-medium"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <FaUser className="mr-2" />
@@ -411,7 +411,7 @@ const Navbar = () => {
                   {!isSellerPage && !isSeller() && (
                     <Link
                       to="/become-seller"
-                      className="flex items-center justify-center px-4 py-3 rounded-lg text-white bg-gradient-to-r from-[#B24592] to-[#F15F79] hover:from-[#6A0DAD] hover:to-[#9B59B6] transition-all duration-300 font-medium"
+                      className="flex items-center justify-center px-4 py-3 rounded-lg text-white bg-linear-to-r from-[#B24592] to-[#F15F79] hover:from-[#6A0DAD] hover:to-[#9B59B6] transition-all duration-300 font-medium"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <span>Become a Member</span>

@@ -105,7 +105,7 @@ const Home = () => {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">Our Active Members</h2>
           <Link to="/members">
-            <button className="text-white sm:px-2 px-4 py-2 rounded font-medium bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300 md:h-11 items-center justify-center flex">
+            <button className="text-white sm:px-2 px-4 py-2 rounded font-medium bg-linear-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300 md:h-11 items-center justify-center flex">
               View All Members
             </button>
           </Link>
@@ -142,7 +142,7 @@ const Home = () => {
               When you shop here, you support dreams — not corporations.
             </p>
             <Link to="/about-us">
-              <button className="mt-6 bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] text-white px-8 py-3 rounded font-semibold hover:from-[#B24592] hover:to-[#F15F79] transition-all duration-300 shadow-lg hover:shadow-xl">
+              <button className="mt-6 bg-linear-to-r from-[#6A0DAD] to-[#9B59B6] text-white px-8 py-3 rounded font-semibold hover:from-[#B24592] hover:to-[#F15F79] transition-all duration-300 shadow-lg hover:shadow-xl">
                 Know More
               </button>
             </Link>
@@ -162,7 +162,7 @@ const Home = () => {
       </section>
 
       {/* 🌺 FOUNDER'S NOTE */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-[#F8F0FF] via-white to-[#F8F0FF] relative overflow-hidden">
+      <section className="py-16 md:py-24 bg-linear-to-br from-[#F8F0FF] via-white to-[#F8F0FF] relative overflow-hidden">
         <div className="absolute top-0 left-0 w-64 h-64 bg-[#B24592]/10 rounded-full blur-3xl -z-10"></div>
         <div className="absolute bottom-0 right-0 w-72 h-72 bg-[#6A0DAD]/10 rounded-full blur-3xl -z-10"></div>
 
@@ -174,8 +174,8 @@ const Home = () => {
               alt="Founder of Women Business Circle"
               className="w-full h-full object-cover rounded-full transform transition-transform duration-700 ease-out group-hover:scale-105 group-hover:rotate-1"
             />
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#B24592]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
-            <div className="absolute inset-0 w-72 h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-tr from-[#B24592] to-[#F15F79] opacity-20 blur-2xl group-hover:opacity-40 transition-opacity duration-500 -z-10"></div>
+            <div className="absolute inset-0 bg-linear-to-tr from-[#B24592]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+            <div className="absolute inset-0 w-72 h-72 md:w-96 md:h-96 rounded-full bg-linear-to-tr from-[#B24592] to-[#F15F79] opacity-20 blur-2xl group-hover:opacity-40 transition-opacity duration-500 -z-10"></div>
           </div>
 
           {/* Text */}
@@ -236,7 +236,7 @@ const Home = () => {
 // Reusable Feature component
 const Feature = ({ icon, title, text }) => (
   <div className="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-    <div className="w-16 h-16 bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] text-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+    <div className="w-16 h-16 bg-linear-to-r from-[#6A0DAD] to-[#9B59B6] text-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
       {icon}
     </div>
     <h3 className="text-2xl font-semibold text-gray-900 mb-2">{title}</h3>

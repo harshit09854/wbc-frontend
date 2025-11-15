@@ -126,7 +126,7 @@ const Payment = () => {
         {/* Success Message */}
         {showSuccess && (
           <div className="mt-6 bg-green-50 text-green-800 p-4 rounded-lg flex items-start">
-            <FaCheckCircle className="text-green-500 text-xl mr-2 mt-1 flex-shrink-0" />
+            <FaCheckCircle className="text-green-500 text-xl mr-2 mt-1 shrink-0" />
             <div>
               <p className="font-medium">Thank you for your payment!</p>
               <p className="text-sm mt-1">
