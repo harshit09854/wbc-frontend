@@ -74,7 +74,7 @@ function App() {
                       element={<ProductDetails />}
                     />
                     <Route path="/cart" element={<Cart />} />
-                    <Route path="/billing" element={<Billing />} />
+                    <Route path="/billing/:productId" element={<Billing />} />
                     <Route path="/payment" element={<Payment />} />
                     <Route path="/wishlist" element={<WishlistItems />} />
                     <Route path="/seller-login" element={<SellerLogin />} />

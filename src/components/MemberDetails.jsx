@@ -22,12 +22,13 @@ const MemberDetails = () => {
   const [randomRating, setRandomRating] = useState(null);
   //   const [cart, setCart] = useState([]);
 
+  // fetch member products
   useEffect(() => {
     const fetchMemberprod = async () => {
       try {
         const response = await axiosInstance.get(`/showSellerProds/${id}`);
         setProduct(response.data.products);
-        console.log(response.data.products);
+        // console.log(response.data.products);
       } catch (error) {
         console.error("Failed to fetch products:", error);
       }
@@ -40,8 +41,9 @@ const MemberDetails = () => {
     const fetchMemberDetails = async () => {
       try {
         const response = await axiosInstance.get(`/member/${id}`);
+        // console.log("Harshit");
+        // console.log(response.data.seller);
         setMemberDetails(response.data);
-        console.log(response.data.seller);
       } catch (error) {
         console.error("Failed to fetch member details:", error);
       }
@@ -49,35 +51,60 @@ const MemberDetails = () => {
     fetchMemberDetails();
   }, [id]);
 
+  // fetch random rating
   useEffect(() => {
     // Generate a random rating between 3.0 and 5.0
     const rating = (Math.random() * (5 - 3) + 3).toFixed(1);
     setRandomRating(rating);
   }, []);
 
-  // const profileDes[{name, businessDescription, profileImage}] = memberDetails;
-
-  //   const addToCart = (product) => {
-  //     setCart((prevCart) => {
-  //       const existingItem = prevCart.find((item) => item.id === product.id);
-  //       if (existingItem) {
-  //         return prevCart.map((item) =>
-  //           item.id === product.id
-  //             ? { ...item, quantity: item.quantity + 1 }
-  //             : item
-  //         );
-  //       }
-  //       return [...prevCart, { ...product, quantity: 1 }];
-  //     });
-
-  //     // Show success feedback
-  //     // alert(${product.name} added to cart!);
-  //   };
-
+  // Load Shimmer UI (When data is still loading)
   if (!memberDetails)
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <p className="text-center text-gray-600 text-xl">Loading profile...</p>
+      <div className="min-h-screen bg-gradient-to-br from-[#F8F0FF] via-white to-[#F8F0FF] p-4 sm:p-6 md:p-8 animate-pulse">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Sidebar Shimmer */}
+          <div className="lg:col-span-1">
+            <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-white/50">
+              <div className="w-28 h-28 bg-gray-200 rounded-full mx-auto mb-5"></div>
+              <div className="w-40 h-5 bg-gray-200 mx-auto mb-3 rounded"></div>
+              <div className="w-32 h-4 bg-gray-200 mx-auto mb-4 rounded"></div>
+              <div className="w-24 h-4 bg-gray-200 mx-auto rounded"></div>
+              <div className="mt-6 border-t border-gray-200 pt-6 space-y-3">
+                <div className="w-20 h-5 bg-gray-200 rounded"></div>
+                <div className="h-3 bg-gray-200 rounded w-full"></div>
+                <div className="h-3 bg-gray-200 rounded w-5/6"></div>
+                <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Product Shimmer Section */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="w-32 h-6 bg-gray-300 rounded"></div>
+
+            {/* 3 shimmer product cards */}
+            {[1, 2, 3].map((item) => (
+              <div
+                key={item}
+                className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 border border-white/50 flex gap-6"
+              >
+                {/* Product Image */}
+                <div className="w-32 h-32 bg-gray-200 rounded-lg"></div>
+
+                {/* Product Details */}
+                <div className="flex-1 space-y-3">
+                  <div className="w-48 h-5 bg-gray-200 rounded"></div>
+                  <div className="w-60 h-4 bg-gray-200 rounded"></div>
+                  <div className="w-24 h-5 bg-gray-200 rounded"></div>
+
+                  {/* Button shimmer */}
+                  <div className="w-28 h-10 bg-gray-300 rounded-lg mt-4"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     );
 
@@ -200,11 +227,10 @@ const MemberDetails = () => {
                         </p>
 
                         {/* ✨ Buy Now Button */}
-                        <Link to="/billing">
-                          <button
-                            onClick={() => navigate(`/billing/${prod._id}`)}
-                            className="mt-3 text-white px-4 py-2 rounded-lg font-medium bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300"
-                          >
+                        <Link
+                          to={`/billing/${prod._id}?sellerPhone=${memberDetails.seller.phone}`}
+                        >
+                          <button className="mt-3 text-white px-4 py-2 rounded-lg font-medium bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300">
                             Buy Now
                           </button>
                         </Link>

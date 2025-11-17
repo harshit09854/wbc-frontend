@@ -6,16 +6,17 @@ import { Briefcase } from "lucide-react";
 const MembersSection = ({ limit }) => {
   const navigate = useNavigate();
   const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Manual age mapping
-  const manualAges = {
-    "Shally Srivastava": 28,
-    "Rukhsana Sabunwala": 35,
-    "Acharya Dhankunwer Nagar": 42,
-    "Pratima S. Ratnani": 49,
-  };
+  // Manual age mapping (COMMENTED WHERE USED)
+  // const manualAges = {
+  //   "Shally Srivastava": 28,
+  //   "Rukhsana Sabunwala": 35,
+  //   "Acharya Dhankunwer Nagar": 42,
+  //   "Pratima S. Ratnani": 49,
+  // };
 
-  // api call
+  // fetch members
   useEffect(() => {
     const fetchMembers = async () => {
       try {
@@ -23,15 +24,15 @@ const MembersSection = ({ limit }) => {
         setMembers(response.data.sellers || []);
       } catch (error) {
         console.error("Failed to fetch members:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchMembers();
   }, []);
 
-  // apply limit if provided
   const displayedMembers = limit ? members.slice(0, limit) : members;
 
-  // mouse hover effect
   const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
@@ -45,6 +46,56 @@ const MembersSection = ({ limit }) => {
   };
 
   const handleMouseLeave = () => setHoveredCardIndex(null);
+
+  // ==========================
+  // ⭐ SHIMMER UI LOADING VIEW
+  // ==========================
+  if (loading) {
+    return (
+      <section
+        className="py-10 rounded-2xl overflow-hidden animate-pulse"
+        style={{
+          backgroundImage: `
+          radial-gradient(circle at 2px 2px, #ccc 1px, transparent 0),
+          linear-gradient(to bottom, #f9fafb, #f9fafb)
+        `,
+          backgroundSize: "40px 40px, cover",
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between items-center min-h-[300px]"
+              >
+                <div className="flex flex-col items-center flex-grow">
+                  {/* Profile image shimmer */}
+                  <div className="w-16 h-16 rounded-full bg-gray-300 mb-4"></div>
+
+                  {/* Age shimmer (instead of real age) */}
+                  <div className="w-20 h-3 bg-gray-300 rounded mb-2"></div>
+
+                  {/* Name shimmer */}
+                  <div className="w-32 h-4 bg-gray-300 rounded mb-3"></div>
+
+                  {/* Business shimmer */}
+                  <div className="w-28 h-3 bg-gray-300 rounded"></div>
+                </div>
+
+                {/* Button shimmer */}
+                <div className="w-28 h-9 bg-gray-300 rounded mt-4"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // ==========================
+  // ⭐ REAL MEMBERS VIEW
+  // ==========================
 
   return (
     <section
@@ -81,14 +132,18 @@ const MembersSection = ({ limit }) => {
                   alt={member.name || "Default Avatar"}
                   className="w-16 h-16 rounded-full mb-4 object-cover"
                 />
-                <p className="text-sm text-gray-500">
+
+                {/* COMMENTED AGE */}
+                {/* <p className="text-sm text-gray-500">
                   Age: {manualAges[member.name] || "N/A"}
-                </p>
+                </p> */}
+
                 <h3 className="text-lg font-semibold text-center">
                   {member.name && member.name.length > 15
                     ? member.name.slice(0, 15) + "..."
                     : member.name}
                 </h3>
+
                 <div className="flex items-center gap-2 mt-2 text-gray-600">
                   <Briefcase size={14} className="flex-shrink-0" />
                   <span className="text-sm font-semibold truncate max-w-[150px]">

@@ -164,11 +164,30 @@ const FounderPage = () => {
             </div>
 
             {/* Quote Section */}
-            <div className="bg-[#F8F0FF] rounded-3xl p-12 mt-16 text-center">
-              <blockquote className="text-2xl font-medium text-[#2E2E2E] mb-6 italic">
-                "The Quote."
-              </blockquote>
-              <div className="text-xl font-semibold text-[#6A0DAD]">— XYZ</div>
+            <div>
+              <div className="bg-purple-50/60 p-6 md:p-8 rounded-xl border-l-4 border-[#6A0DAD] shadow-sm">
+                <p className="text-lg text-gray-700 mb-4 leading-relaxed italic">
+                  “When I founded the
+                  <span className="font-semibold text-[#6A0DAD]">
+                    {" "}
+                    Women Business Circle
+                  </span>
+                  , I envisioned a space where women could transform creativity
+                  into purpose and purpose into prosperity.”
+                </p>
+
+                <p className="text-lg text-gray-700 italic mb-6 leading-relaxed">
+                  “Empowered women empower communities — and that’s our everyday
+                  mission.”
+                </p>
+
+                <h3 className="text-xl font-semibold text-[#6A0DAD] mt-4">
+                  — Acharya Anima Goswami
+                </h3>
+                <p className="text-gray-600 text-base">
+                  Founder, Women Business Circle
+                </p>
+              </div>
             </div>
           </div>
         </div>

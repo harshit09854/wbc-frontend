@@ -48,16 +48,30 @@ const Home = () => {
 
           {/* Right Image Preview */}
           <div className="w-full md:w-1/2 relative">
-            <div className="bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-200">
-              <div className="bg-[#2A7B9B] text-white text-center py-2 font-semibold">
-                Our Members
+            {/* Glow Border Wrapper */}
+            <div className="relative rounded overflow-hidden">
+              <div className="">
+                <div className="h-full w-full"></div>
               </div>
-              <img
-                src="/Womens.jpg"
-                alt="Dashboard Preview"
-                className="w-full h-[300px] object-cover"
-              />
+
+              {/* Actual Card */}
+              <div className="relative shadow-2xl overflow-hidden">
+                {/* Three Dots */}
+                <div className="flex items-center space-x-2 p-3 pl-4 bg-[#111]/60 backdrop-blur-md">
+                  <span className="w-3 h-3 bg-red-500 rounded-full"></span>
+                  <span className="w-3 h-3 bg-yellow-400 rounded-full"></span>
+                  <span className="w-3 h-3 bg-green-500 rounded-full"></span>
+                </div>
+
+                {/* Image */}
+                <img
+                  src="/Womens.jpg"
+                  alt="Dashboard Preview"
+                  className="w-full aspect-video object-cover"
+                />
+              </div>
             </div>
+
             {/* Decorative Gradient Circles */}
             <div className="absolute -top-6 -right-6 w-24 h-24 bg-pink-300 rounded-full opacity-30 blur-2xl -z-10"></div>
             <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-300 rounded-full opacity-30 blur-2xl -z-10"></div>
@@ -109,26 +123,12 @@ const Home = () => {
       </div>
       <MembersSection limit={8} />
 
-      {/* 🌷 OUR PRODUCTS */}
-      {/* <section className="py-16 md:py-24 bg-amber-50">
-        <div className="text-center mb-12 md:mb-16">
-          <div className="flex items-center justify-center mb-4">
-            <div className="flex-grow border-t border-purple-300"></div>
-            <h2 className="px-4 text-3xl md:text-4xl font-serif font-bold text-[#6A0DAD] whitespace-nowrap">
-              Shop from Our Women Entrepreneurs
-            </h2>
-            <div className="flex-grow border-t border-purple-300"></div>
-          </div>
-        </div>
-        <ProductList />
-      </section> */}
-
       {/* 🪶 GATEWAY TO HERITAGE */}
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center gap-12">
-          <div className="w-full md:w-1/2 text-center md:text-left">
+          <div className="w-full md:w-1/2  md:text-left">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#6A0DAD] mb-6">
-              Empowering India’s Women, One Product at a Time
+              Empowering India's Women, One Product at a Time
             </h2>
             <p className="text-lg text-gray-700 mb-4">
               Every jar of pickle, every handmade toy, every crafted bag carries
@@ -144,11 +144,11 @@ const Home = () => {
             </Link>
           </div>
           <div className="w-full md:w-1/2">
-            <div className="relative">
+            <div className="relative overflow-hidden rounded-lg">
               <img
                 src="/WBC.jpg"
                 alt="WBC Group Photo"
-                className="w-full h-90 rounded-lg shadow-xl"
+                className="w-full h-90 rounded-lg shadow-xl object-cover transition-transform duration-500 ease-out hover:scale-105"
               />
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-pink-100 rounded-full opacity-50 -z-10"></div>
               <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-purple-100 rounded-full opacity-50 -z-10"></div>
@@ -175,28 +175,34 @@ const Home = () => {
           </div>
 
           {/* Text */}
-          <div className="w-full md:w-2/3 text-center md:text-left">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#6A0DAD] mb-6">
+          <div className="w-full md:w-2/3">
+            {/* <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#6A0DAD] mb-6  md:text-left">
               Founder’s Note
-            </h2>
-            <p className="text-lg text-gray-700 mb-4">
-              “When I founded the{" "}
-              <span className="font-semibold text-[#6A0DAD]">
-                Women Business Circle
-              </span>
-              , I envisioned a space where women could transform creativity into
-              purpose and purpose into prosperity.”
-            </p>
-            <p className="text-lg text-gray-700 italic mb-6">
-              “Empowered women empower communities — and that’s our everyday
-              mission.”
-            </p>
-            <h3 className="text-xl font-semibold text-[#6A0DAD]">
-              — Acharya Anima Goswami
-            </h3>
-            <p className="text-gray-600 text-base">
-              Founder, Women Business Circle
-            </p>
+            </h2> */}
+
+            <div className="bg-purple-50/60 p-6 md:p-8 rounded-xl border-l-4 border-[#6A0DAD] shadow-sm">
+              <p className="text-lg text-gray-700 mb-4 leading-relaxed italic">
+                “When I founded the
+                <span className="font-semibold text-[#6A0DAD]">
+                  {" "}
+                  Women Business Circle
+                </span>
+                , I envisioned a space where women could transform creativity
+                into purpose and purpose into prosperity.”
+              </p>
+
+              <p className="text-lg text-gray-700 italic mb-6 leading-relaxed">
+                “Empowered women empower communities — and that’s our everyday
+                mission.”
+              </p>
+
+              <h3 className="text-xl font-semibold text-[#6A0DAD] mt-4">
+                — Acharya Anima Goswami
+              </h3>
+              <p className="text-gray-600 text-base">
+                Founder, Women Business Circle
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -208,13 +214,13 @@ const Home = () => {
       <FAQSection />
 
       {/* CTA */}
-      <section className="py-10 bg-[#2A5C4F] text-white text-center">
+      <section className="py-10 bg-gradient-to-r from-yellow-50 to-orange-50 text-black text-center">
         <div className="max-w-4xl mx-auto px-4">
           <Heart className="w-16 h-16 mx-auto mb-6 text-[#E8B931]" />
           <h2 className="text-5xl font-bold mb-6">
             Ready to Start Your Journey?
           </h2>
-          <p className="text-xl mb-10 text-white/80">
+          <p className="text-xl mb-10 text-black/80">
             Join a community that believes in your dreams and supports your
             growth every step of the way.
           </p>
