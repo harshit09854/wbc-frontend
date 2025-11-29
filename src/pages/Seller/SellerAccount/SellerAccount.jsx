@@ -119,9 +119,7 @@ const SellerAccount = () => {
       case "profile":
         return (
           <ProfileSection
-            profileFormData={profileFormData}
-            handleProfileInputChange={handleProfileInputChange}
-            handleProfileSubmit={handleProfileSubmit}
+            
           />
         );
       default:

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axiosInstance from "../../../api/axiosInstance";
+import { useAuth } from "../../../contexts/AuthContext";
 import {
   User,
   Building2,
@@ -8,16 +10,43 @@ import {
   Phone,
 } from "lucide-react";
 
-const ProfileSection = ({
-  profileFormData,
-  handleProfileInputChange,
-  handleProfileSubmit,
-  isUpdating,
-}) => {
+const ProfileSection = () => {
+  const [profileData,setProfiledata] = useState({
+    businessName :"hi",
+    email:"",
+    phone:"",
+    businessAddress:"",
+    businessDescription:""
+  })
+
+  const { token } = useAuth();
+
+  const fetchData = async () => {
+    try {
+      
+        console.log(token)
+
+      const res = await axiosInstance.get("/seller/profile",{
+        headers :{Authorization :`Bearer ${token}`}
+      });
+      console.log(res.data.profile);
+      setProfiledata(res.data.profile)
+      
+    } catch (err) {
+      // keep console error for debugging; UI handling can be added later
+      // eslint-disable-next-line no-console
+      console.error("Failed to fetch profile:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <section className="mb-12">
       <h2 className="text-3xl font-bold mb-8 text-gray-800">
-        Profile Settings
+        Profile 
       </h2>
 
       <div className="bg-white rounded-2xl shadow-lg p-8 space-y-8 border border-gray-100">
@@ -29,14 +58,14 @@ const ProfileSection = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-600 mb-2">
-                Shop Name
+                Business Name
               </label>
               <input
                 type="text"
                 name="shopName"
                 placeholder="Enter your shop name"
-                value={profileFormData.shopName}
-                onChange={handleProfileInputChange}
+                value={profileData.businessName}
+                // onChange={handleProfileInputChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
               />
             </div>
@@ -49,8 +78,8 @@ const ProfileSection = ({
                 type="email"
                 name="email"
                 placeholder="Enter your email address"
-                value={profileFormData.email}
-                onChange={handleProfileInputChange}
+                value={profileData.email}
+                // onChange={handleProfileInputChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
               />
             </div>
@@ -63,8 +92,8 @@ const ProfileSection = ({
                 type="tel"
                 name="phone"
                 placeholder="Enter your phone number"
-                value={profileFormData.phone}
-                onChange={handleProfileInputChange}
+                value={profileData.phone}
+                // onChange={handleProfileInputChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
               />
             </div>
@@ -72,7 +101,7 @@ const ProfileSection = ({
         </div>
 
         {/* --- Experience --- */}
-        <div>
+        {/* <div>
           <label className="block text-sm font-medium text-gray-600 mb-2">
             Experience in Business
           </label>
@@ -88,7 +117,7 @@ const ProfileSection = ({
             <option value="3-5">3-5 years</option>
             <option value="5+">5+ years</option>
           </select>
-        </div>
+        </div> */}
 
         {/* --- Business Info --- */}
         <div>
@@ -106,8 +135,8 @@ const ProfileSection = ({
                   name="businessAddress"
                   placeholder="Enter your complete business address"
                   rows="3"
-                  value={profileFormData.businessAddress}
-                  onChange={handleProfileInputChange}
+                  value={profileData.businessAddress}
+                  // onChange={handleProfileInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
                 />
               </div>
@@ -117,20 +146,14 @@ const ProfileSection = ({
               <label className="block text-sm font-medium text-gray-600 mb-2">
                 Business Type
               </label>
-              <select
+              <input
                 name="businessType"
-                value={profileFormData.businessType}
-                onChange={handleProfileInputChange}
+                value={profileData.businessName}
+                // onChange={handleProfileInputChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
               >
-                <option value="">Select Type</option>
-                <option value="food">Food & Beverages</option>
-                <option value="fashion">Fashion & Apparel</option>
-                <option value="handicrafts">Handicrafts</option>
-                <option value="beauty">Beauty & Wellness</option>
-                <option value="home">Home & Living</option>
-                <option value="other">Other</option>
-              </select>
+                
+              </input>
             </div>
 
             <div>
@@ -143,8 +166,8 @@ const ProfileSection = ({
                   name="description"
                   placeholder="Write a short description of your business"
                   rows="3"
-                  value={profileFormData.description}
-                  onChange={handleProfileInputChange}
+                  value={profileData.businessDescription}
+                  // onChange={handleProfileInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
                 />
               </div>
@@ -154,19 +177,19 @@ const ProfileSection = ({
 
         {/* --- Save Button --- */}
         <div className="pt-4">
-          <button
-            onClick={handleProfileSubmit}
-            disabled={isUpdating}
-            className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isUpdating ? (
+          {/* <button
+            // onClick={handleProfileSubmit}
+            // disabled={isUpdating}
+            className="flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-indigo-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          > soon */}
+            {/* {isUpdating ? (
               "Saving..."
             ) : (
               <>
                 <Save size={20} /> Save Changes
               </>
-            )}
-          </button>
+            )} */}
+          {/* </button> */}
         </div>
       </div>
     </section>
