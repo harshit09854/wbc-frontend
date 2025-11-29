@@ -20,7 +20,7 @@ const Home = () => {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">Our Active Members</h2>
           <Link to="/members">
-            <button className="text-white sm:px-2 px-4 py-2 rounded font-medium bg-gradient-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300 md:h-11 items-center justify-center flex">
+            <button className="text-white sm:px-2 px-4 py-2 rounded font-medium bg-linear-to-r from-[#6A0DAD] to-[#9B59B6] hover:from-[#B24592] hover:to-[#F15F79] hover:shadow-lg transition-all duration-300 md:h-11 items-center justify-center flex">
               View All Members
             </button>
           </Link>

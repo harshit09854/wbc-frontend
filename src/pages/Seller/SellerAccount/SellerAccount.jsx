@@ -39,8 +39,8 @@ const SellerAccount = () => {
   // Dashboard data (this will update automatically when 'products' state changes)
   const dashboardData = {
     totalProducts: products.length,
-    monthlySales: "₹12,500", // You'll fetch this later
-    pendingOrders: 5, // You'll fetch this later
+    monthlySales: "null", // You'll fetch this later
+    pendingOrders: "null", // You'll fetch this later
   };
 
   // ✅ **FIX 1: Implement fetchProducts correctly**
