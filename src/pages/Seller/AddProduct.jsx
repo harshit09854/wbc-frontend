@@ -208,7 +208,7 @@ const AddProduct = () => {
       const productId = productToEdit?.id;
 
       if (isEditMode && productId) {
-        response = await axiosInstance.patch(
+        response = await axiosInstance.put(
           `/seller/product/update/${productId}`,
           data
         );

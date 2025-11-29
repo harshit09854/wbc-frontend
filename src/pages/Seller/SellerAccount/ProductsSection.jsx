@@ -54,9 +54,11 @@ const ProductsSection = () => {
 
     try {
       const token = localStorage.getItem("token");
-      await axiosInstance.delete(`/product/${productId}`, {
+      console.log(token)
+      await axiosInstance.delete(`/products/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+
       setProducts(products.filter((p) => p._id !== productId));
     } catch (err) {
       console.error("Failed to delete product:", err);
@@ -169,7 +171,7 @@ const ProductsSection = () => {
         </h2>
         <Link
           to="/add-product"
-          className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2.5 px-5 rounded-xl shadow-md hover:opacity-90 transition flex items-center"
+          className="bg-linear-to-r from-purple-600 to-indigo-600 text-white py-2.5 px-5 rounded-xl shadow-md hover:opacity-90 transition flex items-center"
         >
           <Plus size={20} className="mr-2" />
           Add New Product

@@ -35,7 +35,6 @@ import MyProfilePage from "./pages/UserProfile/Profile";
 // import CartProvider from "./contexts/CartContext";
 import UpcomingEvents from "./pages/Home/UpcomingEvents";
 import ScrollToTop from "./components/ScrollToTop";
-
 function App() {
   // const [productsData, setProductsData] = useState([]);
   // const [loadingProducts, setLoadingProducts] = useState(true);
