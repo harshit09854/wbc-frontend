@@ -30,7 +30,7 @@ export default function ContactSection(){
                     </div>
                     <div>
                       <h4 className="font-medium text-[#2E2E2E]">Phone</h4>
-                      <a href="tel:9982498555" className="text-[#7F7F7F] hover:text-[#B24592]">9982498555</a>
+                      <a href="tel:9983802999" className="text-[#7F7F7F] hover:text-[#B24592]">9983802999</a>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">

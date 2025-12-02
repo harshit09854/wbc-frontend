@@ -31,7 +31,7 @@ export default function HeroSection(){
                       <Heart className="text-[#6A0DAD]" size={24} />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-[#2E2E2E]">5000+</p>
+                      <p className="text-2xl font-bold text-[#2E2E2E]">100+</p>
                       <p className="text-[#7F7F7F]">Lives Transformed</p>
                     </div>
                   </div>

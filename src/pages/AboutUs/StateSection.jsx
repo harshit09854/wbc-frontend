@@ -2,7 +2,7 @@ import { Heart, Users, Award, Star } from 'lucide-react';
 
 export default function StatsSection(){
     const stats = [
-    { number: '5000+', label: 'Happy Students', icon: Users },
+    { number: '100+', label: 'Happy Students', icon: Users },
     { number: '10+', label: 'Years Experience', icon: Award },
     { number: '50+', label: 'Expert Instructors', icon: Star },
     { number: '100+', label: 'Classes Weekly', icon: Heart }
