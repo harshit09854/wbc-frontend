@@ -21,7 +21,7 @@ export default function ContactSection(){
                     </div>
                     <div>
                       <h4 className="font-medium text-[#2E2E2E]">Main Studio</h4>
-                      <p className="text-[#7F7F7F]">808,silver residency ,near petrol pump, thoor ,Udaipur,<br />Rajasthan, India, 313001</p>
+                      <p className="text-[#7F7F7F]">Ridhi Sidhi complex, Madhuban <br />Rajasthan, India, 313001</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
@@ -39,7 +39,7 @@ export default function ContactSection(){
                     </div>
                     <div>
                       <h4 className="font-medium text-[#2E2E2E]">Email</h4>
-                      <a href={"mailto:info@metafitwellness.com"} className="text-[#7F7F7F] hover:text-[#B24592]">info@metafitwellness.com</a>
+                      <a href={"mailto:info@metafitwellness.com"} className="text-[#7F7F7F] hover:text-[#B24592]">wbc.udaipur@gmail.com</a>
                     </div>
                   </div>
                 </div>

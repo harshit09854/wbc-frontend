@@ -2,10 +2,10 @@ import { Heart, Users, Award, Star } from 'lucide-react';
 
 export default function StatsSection(){
     const stats = [
-    { number: '100+', label: 'Happy Students', icon: Users },
-    { number: '10+', label: 'Years Experience', icon: Award },
-    { number: '50+', label: 'Expert Instructors', icon: Star },
-    { number: '100+', label: 'Classes Weekly', icon: Heart }
+    { number: '50+', label: 'Happy Students', icon: Users },
+    { number: '2+', label: 'Years Experience', icon: Award },
+    { number: '50+', label: 'Expert Advice', icon: Star },
+    { number: '100+', label: 'Docter Talks', icon: Heart }
   ];
     return(
        <div className="bg-gradient-to-r from-[#6A0DAD] to-[#B24592] text-white py-16">

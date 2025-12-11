@@ -34,13 +34,13 @@ export default function OurStorySection() {
           <div className="mt-8 grid grid-cols-2 gap-6">
             <div className="bg-white p-6 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
               <h3 className="text-xl font-bold text-[#2E2E2E] mb-2">Founded</h3>
-              <p className="text-3xl font-bold text-[#6A0DAD]">2014</p>
+              <p className="text-3xl font-bold text-[#6A0DAD]">2024</p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
               <h3 className="text-xl font-bold text-[#2E2E2E] mb-2">
                 Locations
               </h3>
-              <p className="text-3xl font-bold text-[#6A0DAD]">5+</p>
+              <p className="text-3xl font-bold text-[#6A0DAD]">2+</p>
             </div>
           </div>
         </div>
