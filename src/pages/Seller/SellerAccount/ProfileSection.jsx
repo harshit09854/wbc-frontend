@@ -8,6 +8,9 @@ import {
   ClipboardList,
   Save,
   Phone,
+  Edit,
+  X,
+  Camera,
 } from "lucide-react";
 
 const ProfileSection = () => {
@@ -16,9 +19,13 @@ const ProfileSection = () => {
     email:"",
     phone:"",
     businessAddress:"",
-    businessDescription:""
+    businessDescription:"",
+    profileImage: ""
   })
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
   const { token } = useAuth();
 
   const fetchData = async () => {
@@ -27,9 +34,10 @@ const ProfileSection = () => {
         console.log(token)
 
       const res = await axiosInstance.get("/seller/profile",{
-        headers :{Authorization :`Bearer ${token}`}
+        headers :{Authorization :`Bearer ${token}`} 
       });
       console.log(res.data.profile);
+      console.log("Profile Image:", res.data.profile.profileImage);
       setProfiledata(res.data.profile)
       
     } catch (err) {
@@ -43,15 +51,95 @@ const ProfileSection = () => {
     fetchData();
   }, []);
 
+  const handleProfileInputChange = (e) => {
+    const { name, value } = e.target;
+    setProfiledata((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setPreviewImage(URL.createObjectURL(file));
+    }
+  };
+
+  const handleProfileSubmit = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("businessName", profileData.businessName || "");
+      formData.append("phone", profileData.phone || "");
+      formData.append("businessAddress", profileData.businessAddress || "");
+      formData.append("businessDescription", profileData.businessDescription || "");
+      
+      if (imageFile) {
+        formData.append("profileImage", imageFile);
+      }
+
+      const res = await axiosInstance.post("/seller/update-profile", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setProfiledata(res.data.profile);
+      setIsEditing(false);
+      setImageFile(null);
+      setPreviewImage(null);
+      console.log("Profile updated successfully");
+    } catch (err) {
+      console.error("Failed to update profile:", err);
+    }
+  };
+
   return (
     <section className="mb-12">
-      <h2 className="text-3xl font-bold mb-8 text-gray-800">
-        Profile 
-      </h2>
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-3xl font-bold text-gray-800">Profile</h2>
+        {!isEditing ? (
+          <button
+            onClick={() => setIsEditing(true)}
+            className="flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            <Edit size={18} /> Edit Profile
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              setIsEditing(false);
+              setPreviewImage(null);
+              setImageFile(null);
+              fetchData(); // Reset data
+            }}
+            className="flex items-center gap-2 bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
+          >
+            <X size={18} /> Cancel
+          </button>
+        )}
+      </div>
 
       <div className="bg-white rounded-2xl shadow-lg p-8 space-y-8 border border-gray-100">
         {/* --- Profile Info --- */}
         <div>
+          <div className="flex justify-center mb-6 relative w-fit mx-auto">
+            <img
+              src={previewImage || profileData.profileImage || "https://via.placeholder.com/150"}
+              alt="Profile"
+              className="w-32 h-32 rounded-full object-cover border-4 border-purple-200 shadow-md"
+            />
+            {isEditing && (
+              <label className="absolute bottom-0 right-0 bg-purple-600 text-white p-2 rounded-full cursor-pointer hover:bg-purple-700 shadow-lg transition-all">
+                <Camera size={18} />
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageChange}
+                />
+              </label>
+            )}
+          </div>
           <h3 className="text-xl font-semibold text-gray-800 flex items-center gap-2 mb-6">
             <User className="text-purple-600" /> Profile Information
           </h3>
@@ -62,11 +150,12 @@ const ProfileSection = () => {
               </label>
               <input
                 type="text"
-                name="shopName"
+                name="businessName"
                 placeholder="Enter your shop name"
                 value={profileData.businessName}
-                // onChange={handleProfileInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                onChange={handleProfileInputChange}
+                disabled={!isEditing}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
               />
             </div>
 
@@ -79,8 +168,8 @@ const ProfileSection = () => {
                 name="email"
                 placeholder="Enter your email address"
                 value={profileData.email}
-                // onChange={handleProfileInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                disabled={true} // Email usually not editable here
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed outline-none"
               />
             </div>
 
@@ -93,8 +182,9 @@ const ProfileSection = () => {
                 name="phone"
                 placeholder="Enter your phone number"
                 value={profileData.phone}
-                // onChange={handleProfileInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                onChange={handleProfileInputChange}
+                disabled={!isEditing}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
               />
             </div>
           </div>
@@ -136,8 +226,9 @@ const ProfileSection = () => {
                   placeholder="Enter your complete business address"
                   rows="3"
                   value={profileData.businessAddress}
-                  // onChange={handleProfileInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                  onChange={handleProfileInputChange}
+                  disabled={!isEditing}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
                 />
               </div>
             </div>
@@ -147,13 +238,11 @@ const ProfileSection = () => {
                 Business Type
               </label>
               <input
-                name="businessType"
-                value={profileData.businessName}
-                // onChange={handleProfileInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
-              >
-                
-              </input>
+                name="businessType" // Note: Backend doesn't currently return or update businessType in profile
+                value={profileData.businessType || ""}
+                disabled={true} // Disabled as it's not in the update logic
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed outline-none"
+              />
             </div>
 
             <div>
@@ -167,8 +256,9 @@ const ProfileSection = () => {
                   placeholder="Write a short description of your business"
                   rows="3"
                   value={profileData.businessDescription}
-                  // onChange={handleProfileInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                  onChange={handleProfileInputChange}
+                  disabled={!isEditing}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
                 />
               </div>
             </div>
@@ -176,21 +266,16 @@ const ProfileSection = () => {
         </div>
 
         {/* --- Save Button --- */}
-        <div className="pt-4">
-          {/* <button
-            // onClick={handleProfileSubmit}
-            // disabled={isUpdating}
-            className="flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-indigo-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          > soon */}
-            {/* {isUpdating ? (
-              "Saving..."
-            ) : (
-              <>
-                <Save size={20} /> Save Changes
-              </>
-            )} */}
-          {/* </button> */}
-        </div>
+        {isEditing && (
+          <div className="pt-4 flex justify-end">
+            <button
+              onClick={handleProfileSubmit}
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:opacity-90 transition-all"
+            >
+              <Save size={20} /> Save Changes
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

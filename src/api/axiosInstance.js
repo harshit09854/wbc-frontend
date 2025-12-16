@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://wbc-backend-13ki.onrender.com/api", // Replace with your backend API base URL
+  // baseURL: "https://wbc-backend-13ki.onrender.com/api", // Replace with your backend API base URL
+  baseURL: "http://localhost:5000/api", // Local development URL
   headers: {
     "Content-Type": "application/json",
   },

@@ -160,13 +160,13 @@ const Navbar = () => {
                     </Link>
                   )}
 
-                  <Link
+                  {/* <Link
                     to="/my-profile"
                     className="flex items-center px-4 py-2 hover:bg-purple-50"
                   >
                     <FaUser className="mr-3" />
                     My Profile
-                  </Link>
+                  </Link> */}
 
                   <div className="border-t mt-1">
                     <button
