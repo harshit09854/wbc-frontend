@@ -11,6 +11,7 @@ import {
   Edit,
   X,
   Camera,
+  Lock,
 } from "lucide-react";
 
 const ProfileSection = () => {
@@ -26,6 +27,12 @@ const ProfileSection = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  
+  // Password Change State
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [passwordData, setPasswordData] = useState({ currentPassword: "", newPassword: "", confirmPassword: "" });
+  const [passwordMessage, setPasswordMessage] = useState("");
+
   const { token } = useAuth();
 
   const fetchData = async () => {
@@ -90,6 +97,36 @@ const ProfileSection = () => {
       console.log("Profile updated successfully");
     } catch (err) {
       console.error("Failed to update profile:", err);
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
+  };
+
+  const submitPasswordChange = async () => {
+    setPasswordMessage("");
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setPasswordMessage("New passwords do not match.");
+      return;
+    }
+    if (!passwordData.currentPassword || !passwordData.newPassword) {
+      setPasswordMessage("All fields are required.");
+      return;
+    }
+
+    try {
+      await axiosInstance.post("/seller/change-password", {
+        currentPassword: passwordData.currentPassword,
+        newPassword: passwordData.newPassword
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setPasswordMessage("Password updated successfully!");
+      setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
+      setShowPasswordForm(false);
+    } catch (err) {
+      setPasswordMessage(err.response?.data?.message || "Failed to update password");
     }
   };
 
@@ -276,6 +313,60 @@ const ProfileSection = () => {
             </button>
           </div>
         )}
+
+        {/* --- Security Section (Change Password) --- */}
+        <div className="pt-8 border-t border-gray-100">
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-xl font-semibold text-gray-800 flex items-center gap-2">
+              <Lock className="text-purple-600" /> Security
+            </h3>
+            <button
+              onClick={() => setShowPasswordForm(!showPasswordForm)}
+              className="text-purple-600 hover:text-purple-800 font-medium text-sm"
+            >
+              {showPasswordForm ? "Cancel" : "Change Password"}
+            </button>
+          </div>
+
+          {showPasswordForm && (
+            <div className="bg-gray-50 p-6 rounded-xl space-y-4 border border-gray-200">
+              <div>
+                <label className="block text-sm font-medium text-gray-600 mb-2">Current Password</label>
+                <input
+                  type="password"
+                  name="currentPassword"
+                  value={passwordData.currentPassword}
+                  onChange={handlePasswordChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">New Password</label>
+                  <input
+                    type="password"
+                    name="newPassword"
+                    value={passwordData.newPassword}
+                    onChange={handlePasswordChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">Confirm New Password</label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    value={passwordData.confirmPassword}
+                    onChange={handlePasswordChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
+                  />
+                </div>
+              </div>
+              {passwordMessage && <p className={`text-sm ${passwordMessage.includes("success") ? "text-green-600" : "text-red-600"}`}>{passwordMessage}</p>}
+              <button onClick={submitPasswordChange} className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors">Update Password</button>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

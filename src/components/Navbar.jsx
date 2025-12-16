@@ -160,13 +160,15 @@ const Navbar = () => {
                     </Link>
                   )}
 
-                  {/* <Link
-                    to="/my-profile"
-                    className="flex items-center px-4 py-2 hover:bg-purple-50"
-                  >
-                    <FaUser className="mr-3" />
-                    My Profile
-                  </Link> */}
+                  {!isSeller() && (
+                    <Link
+                      to="/my-profile"
+                      className="flex items-center px-4 py-2 hover:bg-purple-50"
+                    >
+                      <FaUser className="mr-3" />
+                      My Profile
+                    </Link>
+                  )}
 
                   <div className="border-t mt-1">
                     <button
@@ -285,14 +287,16 @@ const Navbar = () => {
                     </Link>
                   )}
 
-                  <Link
-                    to="/my-profile"
-                    className="flex items-center px-4 py-3 border rounded-lg mb-2"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <FaUser className="mr-3" />
-                    My Profile
-                  </Link>
+                  {!isSeller() && (
+                    <Link
+                      to="/my-profile"
+                      className="flex items-center px-4 py-3 border rounded-lg mb-2"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <FaUser className="mr-3" />
+                      My Profile
+                    </Link>
+                  )}
 
                   <button
                     onClick={handleLogout}

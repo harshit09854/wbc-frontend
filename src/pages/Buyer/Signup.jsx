@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import axios from "axios";
 import logo from "../../assets/logo.png";
+import axiosInstance from "../../api/axiosInstance";
 
 // Signup component
 const Signup = () => {
@@ -44,8 +44,8 @@ const Signup = () => {
 
     try {
       // Send signup request to backend
-      const response = await axios.post(
-        "https://wbc-backend-13ki.onrender.com/api/buyer/signup",
+      const response = await axiosInstance.post(
+        "/buyer/signup",
         {
           name: data.name,
           email: data.email,
@@ -57,11 +57,11 @@ const Signup = () => {
 
       // If token is received, log in and r edirect
       if (response.data.token) {
-        login(response.data.token, {
+        login({
           name: data.name,
           email: data.email,
           role: "buyer",
-        });
+        }, response.data.token);
         navigate("/"); // Redirect to homepage or dashboard
       } else {
         setError("Signup successful but no token received");

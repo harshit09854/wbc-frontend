@@ -1,15 +1,15 @@
 // Import necessary modules and hooks
 import React, { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import logo from "../../assets/logo.png";
+import axiosInstance from "../../api/axiosInstance";
 
 // Login component
 const Login = () => {
   const navigate = useNavigate(); // Hook to programmatically navigate
   const { login } = useAuth(); // Custom context hook to handle login logic
-
+    
   // State for form data, error messages, and loading status
   const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -29,8 +29,8 @@ const Login = () => {
 
     try {
       // Send login request to backend
-      const response = await axios.post(
-        "https://wbc-backend-13ki.onrender.com/api/buyer/login",
+      const response = await axiosInstance.post(
+        "/buyer/login",
         data
       );
 
@@ -133,12 +133,12 @@ const Login = () => {
                     Remember me
                   </label>
                 </div>
-                <Link
+                {/* <Link
                   to="/forgot-password"
                   className="text-[#6A0DAD] hover:text-[#B24592] text-sm font-medium transition-colors duration-300"
                 >
                   Forgot Password?
-                </Link>
+                </Link> */}
               </div>
 
               {/* Error Message */}

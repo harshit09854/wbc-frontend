@@ -134,12 +134,12 @@ const SellerLogin = () => {
                     Remember me
                   </label>
                 </div>
-                <Link
+                {/* <Link
                   to="/forgot-password" // This can be a shared route
                   className="text-[#6A0DAD] hover:text-[#B24592] text-sm font-medium transition-colors duration-300"
                 >
                   Forgot Password?
-                </Link>
+                </Link> */}
               </div>
 
               {/* Error Message */}
