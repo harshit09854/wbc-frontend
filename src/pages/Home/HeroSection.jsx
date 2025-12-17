@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function HeroSection() {
+  const { isSeller } = useAuth();
   return (
     <section
       className="rounded-2xl overflow-hidden text-white p-8 shadow-xl"
@@ -26,11 +28,13 @@ export default function HeroSection() {
             story — all in one place.
           </p>
           <div className="flex flex-col sm:flex-row sm:space-x-4 justify-center md:justify-start">
-            <Link to="/become-seller">
-              <button className="w-full sm:w-auto mb-3 sm:mb-0 bg-white text-[#2A7B9B] px-8 py-3 rounded font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl">
-                Become a Member
-              </button>
-            </Link>
+            {!isSeller() && (
+              <Link to="/become-seller">
+                <button className="w-full sm:w-auto mb-3 sm:mb-0 bg-white text-[#2A7B9B] px-8 py-3 rounded font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  Become a Member
+                </button>
+              </Link>
+            )}
             <Link to="/upcoming-events">
               <button className="w-full sm:w-auto bg-white/20 backdrop-blur-sm text-white px-8 py-3 rounded font-semibold hover:bg-white/30 transition-colors duration-300 border border-white/30">
                 News & Events
